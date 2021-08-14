@@ -1,8 +1,9 @@
 import React from 'react';
+import style from './Profile.module.css'
 
-const Content = () => {
-    return <div className='content'>
-        <img className='images2' src="https://lifeo.ru/wp-content/uploads/vesna-100-min.jpg"/>
+const Profile = () => {
+    return <div className={style.content}>
+        <img src="https://lifeo.ru/wp-content/uploads/vesna-100-min.jpg"/>
         <div>
             ava + discription
             Bla bla bal
@@ -25,4 +26,4 @@ const Content = () => {
     </div>
 }
 
-export default Content;
+export default Profile;
