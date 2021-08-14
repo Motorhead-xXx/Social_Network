@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './Nav.module.css';
+import style from './Navbar.module.css';
 
-const Nav = () => {
+const Navbar = () => {
     return <nav className={style.nav}>
         <div className={style.item}>
             <a>Profile</a>
@@ -22,4 +22,4 @@ const Nav = () => {
     </nav>
 }
 
-export default Nav;
+export default Navbar;

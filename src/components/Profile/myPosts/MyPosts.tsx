@@ -1,23 +1,33 @@
 import React from 'react';
-import style from '../MyPost.module.css'
+import style from './MyPosts.module.css';
 
-const MyPost = () => {
+const MyPosts = () => {
     return (
     <div>
-        My post
-    </div>
-    <div className={style.posts}>
-        <div className={style.item}>
-            post1
-        </div>
-        <div className={style.item}>
-            post2
-        </div>
+        My posts
         <div>
-            post3
+            New post
+        </div>
+        <div className={style.posts}>
+            <div className={style.item}>
+                post1
+            </div>
+            <div className={style.item}>
+                post2
+            </div>
+            <div className={style.item}>
+                post3
+            </div>
+            <div className={style.item}>
+                post4
+            </div>
+            <div className={style.item}>
+                post5
+            </div>
+
         </div>
     </div>
-
+    )
 }
 
-export default MyPost;
+export default MyPosts;

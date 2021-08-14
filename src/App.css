@@ -10,24 +10,7 @@
     /*grid-gap: 10px;*/
 }
 
-.header{
-    grid-area: h;
-    background-color: bisque;
+body{
+    background-image: url(https://phonoteka.org/uploads/posts/2021-03/1616678799_41-p-fon-puziri-44.jpg);
+    background-size: 40%;
 }
-
-.nav{
-    grid-area: n;
-    background-color: aqua;
-}
-
-.content{
-    grid-area: c;
-    background-color: cadetblue;
-}
-.images1{
-    width:50px;
-    height: 30px;
-
-}.images2{
-
-    }
