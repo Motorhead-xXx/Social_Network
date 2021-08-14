@@ -10,8 +10,8 @@ const MyPosts = () => {
             New post
         </div>
         <div className={style.posts}>
-            <Post message='Sosiska' like= {10}/>
-            <Post message='Rediska' like={6}/>
+            <Post message='Sosiska' likeCount= {10}/>
+            <Post message='Rediska' likeCount={6}/>
         </div>
     </div>
     )

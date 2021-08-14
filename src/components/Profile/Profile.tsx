@@ -4,7 +4,7 @@ import MyPosts from "./myPosts/MyPosts";
 
 
 const Profile = () => {
-    return <div className={style.content}>
+    return <div>
         <img src="https://lifeo.ru/wp-content/uploads/vesna-100-min.jpg"/>
         <div>
             ava + discription
