@@ -2,3 +2,8 @@
     grid-area: c;
     background-color: cadetblue;
 }
+
+img {
+    width: 100%;
+    height: 40%;
+}

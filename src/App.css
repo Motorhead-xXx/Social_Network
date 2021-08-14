@@ -1,4 +1,4 @@
-.app-wrapper{
+.app-wrapper {
     width: 1200px;
     margin: 0 auto;
     display: grid;
@@ -10,7 +10,7 @@
     /*grid-gap: 10px;*/
 }
 
-body{
+body {
     background-image: url(https://phonoteka.org/uploads/posts/2021-03/1616678799_41-p-fon-puziri-44.jpg);
     background-size: 40%;
 }
