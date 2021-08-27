@@ -4,17 +4,41 @@
     border-radius: 10px;
     margin-left: 100px;
     padding: 30px;
-    color: white;
+    font-family: Arial;
+
 }
 
 .item a{
-    color: whitesmoke;
+    color: #382f2f;
     text-decoration: none;
 }
 
+.item{
+    display: flex;
+    height: auto;
+    width: 100px;
+    margin-bottom: 10px;
+}
 
 a.active{
     color: red;
     font-size: large;
     font-weight: bolder;
+}
+
+.friendsSidebar {
+    display: grid;
+    margin-top: 100px;
+    gap: 20px;
+}
+
+.sidebarImg{
+    width: 40px;
+    border-radius: 40px;
+}
+
+.sidebarElements{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }

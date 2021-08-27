@@ -3,7 +3,7 @@ import style from './Header.module.css'
 
 const Header = () => {
     return <header className={style.header}>
-        <img src='https://f0.pngfuel.com/png/197/646/farmers-market-logo-kuna-farmers-market-marketplace-png-clip-art.png'/>
+        <img src='http://pngimg.com/uploads/megaphone/megaphone_PNG94.png'/>
     </header>
 }
 

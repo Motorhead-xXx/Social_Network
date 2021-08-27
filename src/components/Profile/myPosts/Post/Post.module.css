@@ -4,6 +4,41 @@
 }
 
 .item img{
+    grid-area: i;
     width: 40px;
     border-radius: 40px;
+
+}
+
+.item{
+ display: grid;
+    grid-template-areas: "i m" ;
+    grid-template-columns: 1fr 8fr;
+}
+.messagePost{
+    grid-area: m;
+    border: solid 2px;
+    padding: 20px;
+    border-radius: 30px;
+}
+
+.countLike {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    color: #162a67;
+    background: url(http://pngimg.com/uploads/heart/heart_PNG51334.png) center/25px 25px no-repeat;
+    height: 40px;
+    padding-bottom: 5px;
+    font-size: 12px;
+
+}
+
+.likeType{
+    display: flex;
+    gap: 5px;
+    height: 30px;
+    align-items: center;
+
 }

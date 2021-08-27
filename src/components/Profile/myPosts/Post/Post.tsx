@@ -3,18 +3,22 @@ import style from './Post.module.css';
 
 type PropsType = {
     message: string
-    likeCount:number
+    likeCount: number
 }
 
 
-const Post = (props:PropsType) => {
+const Post = (props: PropsType) => {
     return (
         <div className={style.item}>
-            <img src="https://cs3.livemaster.ru/zhurnalfoto/3/8/f/140723153856.jpg"/>
-            {props.message}
-            <div>
-                <span>Like</span> {props.likeCount}
+            <img src="https://bizlit.com.ua/image/data/pictures/YeDYzSR-10apkm4.png"/>
+            <div className={style.messagePost}>
+                {props.message}
+
+                <div className={style.likeType}>
+                    <span className={style.countLike}>{props.likeCount}</span>
+                </div>
             </div>
+
 
         </div>
 

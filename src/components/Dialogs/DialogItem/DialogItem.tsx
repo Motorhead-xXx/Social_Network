@@ -1,17 +1,22 @@
 import React from "react";
-import style from './.../Dialogs.module.css'
+import style from './../Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 
 type dialogsType = {
     name: string
     id: number
+    image: string
 }
 
 const DialogItem: React.FC<dialogsType> = (props) => {
     const path = '/dialogs/' + props.id;
     return (
-        <div>
-            <NavLink to={path} activeClassName={style.active}>{props.name}</NavLink>
+        <div className={style.containerDialog}>
+
+            <NavLink to={path} activeClassName={style.active} className={style.dialogsStyle}>
+                 <img src={props.image} className={style.imageDialog}/>
+                <div> {props.name}</div>
+            </NavLink>
         </div>
     )
 }
