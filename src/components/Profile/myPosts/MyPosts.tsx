@@ -1,31 +1,33 @@
 import React  from 'react';
 import style from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {postDataType, profilePageType} from "../../../redux/state";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {postDataType} from "../../../redux/state";
+import {ActionTypes} from "../../../App";
 
 
 
 
 type typeMyPosts = {
     posts: Array<postDataType>
-    addPost: () => void
+    dispatch: (action: ActionTypes) => void
     newPostText: string
-    updateNewPostText: (newText: string) => void
+
 }
 
 const MyPosts = (props:typeMyPosts) => {
 
     let postsElements = props.posts.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
 
-    let newPostElement:any = React.createRef();
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPosts = () => {
-        props.addPost()
+        props.dispatch(addPostActionCreator())
     }
 
     let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text)
+        let text = newPostElement.current?.value;
+        text && props.dispatch(updateNewPostTextActionCreator(text))
     }
 
     return (

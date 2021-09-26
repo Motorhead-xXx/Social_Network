@@ -1,16 +1,17 @@
 import React from 'react';
 import style from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
+import {RootStateType} from "../../redux/state";
 import Sidebar from "./SideBar/Sidebar";
-import {sidebarType} from "../../redux/state";
+
 
 type navbarType = {
-    state: sidebarType
+    state: RootStateType
 }
 
 const Navbar = (props:navbarType) => {
-    let sidebarElements = props.state.imagesData.map(item => <Sidebar image={item.image}/>)
 
+  let sidebarElements = props.state.sidebar.imagesData.map((item) => <Sidebar image={item.image}/>)
 
     return (
         <nav className={style.nav}>
@@ -31,8 +32,8 @@ const Navbar = (props:navbarType) => {
             </div>
 
             <div className={style.friendsSidebar}>
-               <h3>FRIENDS </h3>
-               <div className={style.sidebarElements}>{sidebarElements}</div>
+            <h3>FRIENDS </h3>
+           <div className={style.sidebarElements}>{sidebarElements}</div>
             </div>
 
         </nav>
