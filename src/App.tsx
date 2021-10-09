@@ -18,15 +18,15 @@ const App = () => {
             <Header/>
             <Navbar />
             <div className='app-wrapper-content'>
-                <Route exact path={'/'} render={() => <Redirect to={"/profile"}/>}/>
+                <Route exact path={'/'} render={() => <Redirect to={"/Social_Network/profile"}/>}/>
 
-                <Route path="/dialogs"
+                <Route path="/Social_Network/dialogs"
                        render={() => <DialogsContainer/>}/>
 
-                <Route path="/profile"
+                <Route path="/Social_Network/profile"
                        render={() => <Profile/>}/>
 
-                <Route path="/users"
+                <Route path="/Social_Network/users"
                        render={() => <UsersContainer/>}/>
             </div>
         </div>
