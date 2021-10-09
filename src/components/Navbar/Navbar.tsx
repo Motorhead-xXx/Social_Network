@@ -12,13 +12,13 @@ const Navbar = () => {
     return (
         <nav className={style.nav}>
             <div className={style.item}>
-                <NavLink to="/profile" activeClassName={style.active}> Profile</NavLink>
+                <NavLink to="/Social_Network/profile" activeClassName={style.active}> Profile</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to="/dialogs" activeClassName={style.active}>Messages</NavLink>
+                <NavLink to="/Social_Network/dialogs" activeClassName={style.active}>Messages</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to="/users" activeClassName={style.active}>Users</NavLink>
+                <NavLink to="/Social_Network/users" activeClassName={style.active}>Users</NavLink>
             </div>
             <div className={style.item}>
                 <a>News</a>
