@@ -18,7 +18,7 @@ const App = () => {
             <Header/>
             <Navbar />
             <div className='app-wrapper-content'>
-                <Route exact path={'/'} render={() => <Redirect to={"/Social_Network/profile"}/>}/>
+                <Route exact path={'/Social_Network'} render={() => <Redirect to={"/Social_Network/profile"}/>}/>
 
                 <Route path="/Social_Network/dialogs"
                        render={() => <DialogsContainer/>}/>
