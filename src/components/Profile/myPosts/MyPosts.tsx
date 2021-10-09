@@ -1,40 +1,38 @@
-import React  from 'react';
+import React, {KeyboardEvent} from 'react';
 import style from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
-import {postDataType} from "../../../redux/state";
-import {ActionTypes} from "../../../App";
+import {PostPropsType} from "./MyPostsContainer";
 
+const MyPosts = (props: PostPropsType) => {
 
-
-
-type typeMyPosts = {
-    posts: Array<postDataType>
-    dispatch: (action: ActionTypes) => void
-    newPostText: string
-
-}
-
-const MyPosts = (props:typeMyPosts) => {
-
-    let postsElements = props.posts.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
+    let postsElements = props.profilePage.postData.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPosts = () => {
-        props.dispatch(addPostActionCreator())
+        let text = newPostElement.current?.value;
+       text && props.addPosts(text);
+        // let text = newPostElement.current?.value;
+        // text && props.dispatch(addPostActionCreator(text))
     }
 
     let onPostChange = () => {
         let text = newPostElement.current?.value;
-        text && props.dispatch(updateNewPostTextActionCreator(text))
+        text && props.onPostChange(text)
+        // text && props.dispatch(updateNewPostTextActionCreator(text))
+    }
+
+    const keyClick = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.charCode === 13) {
+            addPosts()
+        }
     }
 
     return (
         <div>
             <h3> My posts </h3>
             <div>
-                <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
+                <textarea onKeyPress={keyClick} onChange={onPostChange} ref={newPostElement} value={props.profilePage.newPostText}/>
             </div>
             <div>
                 <button onClick={addPosts}>Add post</button>

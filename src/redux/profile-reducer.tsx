@@ -1,25 +1,50 @@
-import {ActionTypes, AddPostActionType, NewTextActionType} from "../App";
-import {profilePageType} from "./state";
+import {ActionTypes} from "../App";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReduser = (state: profilePageType, action:ActionTypes) => {
+type postDataType = {
+    id: number
+    message: string
+    likeCount: number
+}
+export type profileReducerType = {
+    postData: Array<postDataType>
+    newPostText: string
+}
+
+let initialState: profileReducerType = {
+    postData: [
+        {id: 1, message: 'Sosiska', likeCount: 23},
+        {id: 2, message: 'REDDISKA', likeCount: 77},
+        {id: 3, message: 'Do you want me? ', likeCount: 107},
+    ],
+    newPostText: '',
+}
+
+const profileReduser = (state: profileReducerType = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case ADD_POST:
-            let newPost = {id: new Date().getTime(),message: state.newPostText,likeCount: 0}
-            state.postData.push(newPost);
-            state.newPostText = "";
-            return state;
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
+        case ADD_POST: {
+         return  {
+            ...state,
+                postData: [{id: new Date().getTime(), message: state.newPostText, likeCount: 0},...state.postData],
+                newPostText: ""
+            }
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            return  {...state,
+                newPostText: action.postText
+            }
+        }
+        default:
             return state
-        default: return state
     }
 }
 
+export type addPostAC = ReturnType<typeof addPostActionCreator>
+export const addPostActionCreator = (postText: string) => ({type: ADD_POST, postText} as const)
 
-export const addPostActionCreator = (newText:string):AddPostActionType => ({type: ADD_POST , newText})
-export const updateNewPostTextActionCreator = (newText: string): NewTextActionType => ({type: UPDATE_NEW_POST_TEXT, newText})
+export type newTextAC = ReturnType<typeof updateNewPostTextActionCreator>
+export const updateNewPostTextActionCreator = (postText: string) => ({type: UPDATE_NEW_POST_TEXT, postText} as const)
 
 export default profileReduser;

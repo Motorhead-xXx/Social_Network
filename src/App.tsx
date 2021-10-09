@@ -4,54 +4,30 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {Redirect, Route} from "react-router-dom";
-import Dialogs from "./components/Dialogs/Dialogs";
-import {StoreType} from "./redux/state";
+import {addPostAC, newTextAC} from "./redux/profile-reducer";
+import {messageAC, updateMessageAC} from "./redux/dialogs-reduser";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
+
+export type ActionTypes = addPostAC | newTextAC | messageAC | updateMessageAC
 
 
- export type AppType = {
-    store: StoreType
-    dispatch: (action: ActionTypes) => void
-}
-
-export type AddPostActionType = {
-    type: "ADD-POST"
-    newText: string
-}
-export type NewTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
-export type NewMessageActionType = {
-    type: "UPDATE-NEW-MESSAGE-TEXT"
-    newText: string
-}
-export type SendMessageActionType = {
-    type: "SEND-MESSAGES"
-    newText: string
-}
-
-export type ActionTypes = AddPostActionType| NewTextActionType| NewMessageActionType| SendMessageActionType
-
-
-
-
-const App = (props: AppType) => {
-     const state = props.store.getState()
-
+const App = () => {
     return (
         <div className='app-wrapper'>
             <Header/>
-            <Navbar state={state}/>
+            <Navbar />
             <div className='app-wrapper-content'>
                 <Route exact path={'/'} render={() => <Redirect to={"/profile"}/>}/>
 
                 <Route path="/dialogs"
-                       render={() => <Dialogs state={state.dialogPage}
-                                              dispatch={props.dispatch.bind(props.store)}/>}/>
+                       render={() => <DialogsContainer/>}/>
 
                 <Route path="/profile"
-                       render={() => <Profile profilePage={state.profilePage}
-                                              dispatch={props.dispatch.bind(props.store)}/>}/>
+                       render={() => <Profile/>}/>
+
+                <Route path="/users"
+                       render={() => <UsersContainer/>}/>
             </div>
         </div>
     )

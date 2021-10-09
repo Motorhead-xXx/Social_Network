@@ -92,7 +92,13 @@ a.active{
     padding: 10px;
     word-break: break-all;
     resize: inherit;
-    font-size: large;
-    border-radius: 10px;
+    font-size: initial;
+    border-radius: 5px;
+    outline: none;
 
+}
+
+.textArea:focus{
+    border: 2px solid orange;
+    background: #ffffdb;
 }

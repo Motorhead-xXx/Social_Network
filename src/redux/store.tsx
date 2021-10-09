@@ -4,45 +4,45 @@ import {ActionTypes} from "../App";
 import sidebarReducer from "./sidebar-reducer";
 
 
-export type postDataType = {
+type postDataType = {
     id: number
     message: string
     likeCount: number
 }
-export type dialogsDataType = {
+type dialogsDataType = {
     name: string
     id: number
     image: string
 }
-export type messagesDataType = {
+type messagesDataType = {
     id: number
     message: string
 }
-export type profilePageType = {
+type profilePageType = {
     postData: Array<postDataType>
     newPostText: string
 
 }
-export type dialogPageType = {
+type dialogPageType = {
     dialogsData: Array<dialogsDataType>
     messagesData: Array<messagesDataType>
     newMessageText: string
 }
-export type imagesDataType = {
+type imagesDataType = {
     image: string
 }
-export type sidebarType = {
+type sidebarType = {
     imagesData: Array<imagesDataType>
 }
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: profilePageType
     dialogPage: dialogPageType
     sidebar: sidebarType
 
 }
 
-export type StoreType = {
+ type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _callSubscriber: (_state: RootStateType) => void

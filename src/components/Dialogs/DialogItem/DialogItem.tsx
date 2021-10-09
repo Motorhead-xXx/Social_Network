@@ -8,7 +8,7 @@ type dialogsType = {
     image: string
 }
 
-const DialogItem: React.FC<dialogsType> = (props) => {
+const DialogItem = (props:dialogsType) => {
     const path = '/dialogs/' + props.id;
     return (
         <div className={style.containerDialog}>
