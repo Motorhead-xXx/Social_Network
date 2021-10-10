@@ -2,9 +2,8 @@ export type usersType = {
     id: number
     followed: boolean
     name: string
-    status: string
-    location: {city: string, country:string}
-    photo:string
+    status: string|null
+    photos: {small: string, large: string}
 }
 
 export type usersReduceType = {
