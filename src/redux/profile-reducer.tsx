@@ -1,5 +1,3 @@
-import {ActionTypes} from "../App";
-
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
@@ -15,14 +13,14 @@ export type profileReducerType = {
 
 let initialState: profileReducerType = {
     postData: [
-        {id: 1, message: 'Sosiska', likeCount: 23},
-        {id: 2, message: 'REDDISKA', likeCount: 77},
+        {id: 1, message: 'Games', likeCount: 23},
+        {id: 2, message: 'sdsdsssssssss', likeCount: 77},
         {id: 3, message: 'Do you want me? ', likeCount: 107},
     ],
     newPostText: '',
 }
 
-const profileReduser = (state: profileReducerType = initialState, action: ActionTypes) => {
+export const profileReduser = (state: profileReducerType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_POST: {
          return  {
@@ -41,10 +39,10 @@ const profileReduser = (state: profileReducerType = initialState, action: Action
     }
 }
 
-export type addPostAC = ReturnType<typeof addPostActionCreator>
+export type ActionTypes = addPostACType | newTextACType
+
+export type addPostACType = ReturnType<typeof addPostActionCreator>
 export const addPostActionCreator = (postText: string) => ({type: ADD_POST, postText} as const)
 
-export type newTextAC = ReturnType<typeof updateNewPostTextActionCreator>
+export type newTextACType = ReturnType<typeof updateNewPostTextActionCreator>
 export const updateNewPostTextActionCreator = (postText: string) => ({type: UPDATE_NEW_POST_TEXT, postText} as const)
-
-export default profileReduser;

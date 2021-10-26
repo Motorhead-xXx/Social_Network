@@ -1,5 +1,3 @@
-import {ActionTypes} from "../App";
-
 type imagesDataType = {
     image: string
 }
@@ -20,5 +18,7 @@ let initialState: sidebarReducerType = {
 const sidebarReducer = (state: sidebarReducerType = initialState, action: ActionTypes) => {
     return state
 }
+
+type ActionTypes = {}
 
 export default sidebarReducer;

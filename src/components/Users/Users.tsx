@@ -1,32 +1,35 @@
 import React from "react";
-import {UsersPropsType} from "./UsersContainer";
 import s from "./Users.module.css"
-import axios from "axios";
-import {usersType} from "../../redux/userReducer";
 import userImages from "../../images/userImages.png"
+import { usersType} from "../../redux/userReducer";
 
-type GetTypeResponseTask = {
-    items: usersType[]
-    totalCount: number,
-    error: null
+type UsersType = {
+    totalUserCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    users: usersType[]
+    unfollow: (userID: number) => void
+    follow: (userID: number) => void
 }
 
-export class Users extends React.Component<UsersPropsType, GetTypeResponseTask> {
-    // constructor(props: UsersPropsType) {
-    //     super(props);
-    // }
-        componentDidMount(){
-            axios.get<GetTypeResponseTask>("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items)
-            });
+export const Users = (props: UsersType) => {
+    debugger
+    let pagesCount = Math.ceil(props.totalUserCount / props.pageSize)
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
 
-
-    render() {
-        return (
+    return (
+        <div>
             <div>
-                {
-                    this.props.usersPage.users.map(m => <div key={m.id}>
+                {pages.map(p =>
+                    <span className={props.currentPage === p ? s.selectedPage : ""}
+                          onClick ={ () => {props.onPageChanged(p) } }>{p}</span>)}
+            </div>
+            {
+                props.users.map(m => <div key={m.id}>
                 <span>
                     <div>
                         <img src={m.photos.small !== null ? m.photos.small : userImages} className={s.userPhoto}/>
@@ -34,15 +37,15 @@ export class Users extends React.Component<UsersPropsType, GetTypeResponseTask> 
                     <div>
                         {m.followed
                             ? <button onClick={() => {
-                                this.props.unfollow(m.id)
+                                props.unfollow(m.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                this.props.follow(m.id)
+                                props.follow(m.id)
                             }}>Follow</button>
                         }
                     </div>
                 </span>
-                        <span>
+                    <span>
                     <span>
                           <div>{m.name}</div>
                         <div>{m.status}</div>
@@ -52,10 +55,9 @@ export class Users extends React.Component<UsersPropsType, GetTypeResponseTask> 
                         <div>{"m.location.country"}</div>
                     </span>
                 </span>
-                    </div>)
-                }
+                </div>)
+            }
 
-            </div>
-        )
-    }
+        </div>
+    )
 }

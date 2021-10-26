@@ -1,5 +1,3 @@
-import {ActionTypes} from "../App";
-
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 const SEND_MESSAGE = 'SEND-MESSAGES';
 
@@ -78,6 +76,8 @@ const dialogReducer = (state: dialogReducerType = initialState, action: ActionTy
     }
 }
 
+
+type ActionTypes = messageAC | updateMessageAC
 export type messageAC = ReturnType<typeof sendMessageCreator>
 export const sendMessageCreator = (newText: string) => ({type: SEND_MESSAGE, newText} as const)
 
