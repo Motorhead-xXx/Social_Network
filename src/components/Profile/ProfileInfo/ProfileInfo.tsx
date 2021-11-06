@@ -9,18 +9,18 @@ type ProfileInfoComponentType = {
 const ProfileInfo = (props: ProfileInfoComponentType) => {
     return (
         <div>
-            <div>
-                <img className={style.img} src="https://lifeo.ru/wp-content/uploads/vesna-100-min.jpg"/>
-            </div>
+            {/*<div>*/}
+            {/*    <img className={style.img} src="https://lifeo.ru/wp-content/uploads/vesna-100-min.jpg"/>*/}
+            {/*</div>*/}
             <div>
                 <div>
-                    <img src={props.profile?.photos.small}/>
-                    <div>{props.profile?.fullName.toLocaleUpperCase()}</div>
-                    <div>{props.profile?.contacts.instagram.toLocaleUpperCase()}</div>
-                    <div>{props.profile?.contacts.vk.toLocaleUpperCase()}</div>
-                    <div>{props.profile?.contacts.github.toLocaleUpperCase()}</div>
+                    <img src={props.profile?.photos.large}/>
+                    <div>{props.profile?.fullName}</div>
+                    <div>{props.profile?.contacts.instagram}</div>
+                    <div>{props.profile?.contacts.vk}</div>
+                    <div>{props.profile?.contacts.github}</div>
                     <div>{`looking for a job:  ${props.profile?.lookingForAJob && "Yes"}`}</div>
-                    <div>{`Job Description:  ${props.profile?.lookingForAJobDescription.toLocaleUpperCase()}`}</div>
+                    <div>{`Job Description:  ${props.profile?.lookingForAJobDescription}`}</div>
 <br/>
                 </div>
 

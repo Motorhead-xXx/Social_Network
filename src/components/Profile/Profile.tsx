@@ -13,6 +13,5 @@ export const Profile = (props:ProfileComponentType) => {
         <ProfileInfo profile={props.profile}/>
         <MyPostsContainer/>
     </div>
-
 }
 

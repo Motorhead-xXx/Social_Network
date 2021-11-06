@@ -1,6 +1,16 @@
 import React from "react";
-import preloader from "../../images/239.svg";
+import preloader from "../../images/preloader.gif";
 
 export const Preloader = () => {
-   return <div> <img src={preloader}/></div>
+
+    let divStyle = {
+        display: "flex",
+        justifyContent: "center"
+    }
+
+    let imgStyle = {
+        width: "80px",
+        height: "100px",
+    }
+    return <div style={divStyle}> <img style={imgStyle} src={preloader}/> </div>
 }

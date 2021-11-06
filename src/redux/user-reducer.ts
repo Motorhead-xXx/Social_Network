@@ -4,7 +4,8 @@ export enum ACTIONS_TYPE {
     SET_USERS = 'Users/SET_USERS',
     SET_CURRENT = 'Users/SET_CURRENT',
     SET_TOTAL_COUNT = 'Users/SET_TOTAL_COUNT',
-    TOGGLE_FETCHING= 'Users/CHANGE_FETCHING',
+    TOGGLE_FETCHING = 'Users/CHANGE_FETCHING',
+    FOLLOWING_PROGRESS = 'Users/FOLLOWING_PROGRESS',
 }
 
 export type usersType = {
@@ -19,17 +20,18 @@ type usersReduceType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
-    isFetching:boolean
+    isFetching: boolean
+    followingProgress: number[]
 }
 
 let initialState = {
     users: [],
-    pageSize: 100,
+    pageSize: 63,
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
+    followingProgress: [],
 }
-
 
 export const usersReducer = (state: usersReduceType = initialState, action: ActionUsersType): usersReduceType => {
     switch (action.type) {
@@ -45,11 +47,19 @@ export const usersReducer = (state: usersReduceType = initialState, action: Acti
         case ACTIONS_TYPE.SET_CURRENT: {
             return {...state, currentPage: action.page}
         }
-        case ACTIONS_TYPE.SET_TOTAL_COUNT:{
+        case ACTIONS_TYPE.SET_TOTAL_COUNT: {
             return {...state, totalUserCount: action.totalCount}
         }
-        case ACTIONS_TYPE.TOGGLE_FETCHING:{
-            return {...state, isFetching: action.isFetching }
+        case ACTIONS_TYPE.TOGGLE_FETCHING: {
+            return {...state, isFetching: action.isFetching}
+        }
+        case ACTIONS_TYPE.FOLLOWING_PROGRESS: {
+            return {
+                ...state,
+                followingProgress: action.isFetching
+                    ? [...state.followingProgress, action.userId]
+                    : state.followingProgress.filter(id=>id !== action.userId)
+            }
         }
         default:
             return state;
@@ -57,7 +67,7 @@ export const usersReducer = (state: usersReduceType = initialState, action: Acti
 }
 
 export type ActionUsersType = followACType | unfollowACType | setUsersType | setCurrentPageType
-    | setTotalUsersCountType| toggleFetchingType
+    | setTotalUsersCountType | toggleFetchingType | ToggleFollowingProgressType
 
 export type followACType = ReturnType<typeof follow>
 export const follow = (userID: number) => ({type: ACTIONS_TYPE.FOLLOW, userID} as const)
@@ -76,3 +86,6 @@ export const setTotalUsersCount = (totalCount: number) => ({type: ACTIONS_TYPE.S
 
 export type toggleFetchingType = ReturnType<typeof toggleFetching>
 export const toggleFetching = (isFetching: boolean) => ({type: ACTIONS_TYPE.TOGGLE_FETCHING, isFetching} as const)
+
+export type ToggleFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
+export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: ACTIONS_TYPE.FOLLOWING_PROGRESS, isFetching, userId} as const)

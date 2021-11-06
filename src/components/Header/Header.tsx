@@ -1,10 +1,26 @@
 import React from 'react';
-import style from './Header.module.css'
+import {AppBar, Button,Toolbar, Typography} from "@material-ui/core";
+import {HeaderMenu} from "./HeaderMenu";
+import headerImages from "../../images/headerImages.png"
+import s from './Header.module.css'
 
-const Header = () => {
-    return <header className={style.header}>
-        <img src='http://pngimg.com/uploads/megaphone/megaphone_PNG94.png'/>
-    </header>
+type HeaderPropsType = {
+    isAuth: boolean
+    login: string|null
+    photo: string|null
+}
+
+const Header = (props: HeaderPropsType) => {
+    return (
+        <AppBar style={{backgroundColor:"#02988e"}} position="relative">
+            <Toolbar>
+                    <HeaderMenu/>
+                <Typography variant={"h3"} component="div" sx={{flexGrow: 1}}/>
+
+                {props.isAuth? <div className={s.login}> <img className={s.photoHeader} src={props.photo? props.photo:headerImages}/> {props.login} </div>:<Button color="inherit" style={{color:"#cc5aa6", fontWeight:"bold"}}>Login</Button>}
+            </Toolbar>
+        </AppBar>
+)
 }
 
 export default Header;
