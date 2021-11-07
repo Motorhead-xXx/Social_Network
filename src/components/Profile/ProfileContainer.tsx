@@ -1,10 +1,10 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileType, setUsersProfile} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {addressAPI} from "../../api/settingAPI";
+import {connect} from "react-redux";
 
 export type getProfileType = {
     aboutMe: string

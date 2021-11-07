@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import {Redirect, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
 import {HashRouter} from "react-router-dom";
-import WithUrlDataProfileContainer from "./components/Profile/ProfileContainer";
 import {Grid} from "@material-ui/core";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import WithUrlDataProfileContainer from "./components/Profile/ProfileContainer";
 
 
 const App = () => {
