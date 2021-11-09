@@ -11,7 +11,8 @@ import {
     usersType
 } from "../../redux/user-reducer";
 import {Pagination} from "@material-ui/core";
-
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type MapStateUserType = {
     users: usersType[]
@@ -28,7 +29,6 @@ export type MapDispatchPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 type UsersPropsType = MapStateUserType & MapDispatchPropsType
-
 
 class UsersContainer extends React.Component<UsersPropsType, {}> {
 
@@ -47,7 +47,7 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
         return (
             <div>
                 <div className={s.paginator}>
-                    <Pagination color={"primary"} onChange={(event, page) => {
+                    <Pagination sx={{padding:"10px 0 15px 0"}} color={"warning"} onChange={(event, page) => {
                         this.onPageChanged(page)
                     }}
                                 count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={22} size={"small"}/>
@@ -79,4 +79,7 @@ let mapStateToProps = (state: AppStateType): MapStateUserType => {
     }
 }
 
-export default connect(mapStateToProps,{follow,unfollow,setCurrentPage,getUsers})(UsersContainer)
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers})
+)(UsersContainer)

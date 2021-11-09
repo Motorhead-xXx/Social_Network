@@ -1,35 +1,27 @@
 import React from "react";
-import {dialogReducerType, sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reduser";
+import {dialogReducerType, onSendMessage, updateNewMessage} from "../../redux/dialogs-reduser";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type MapStateDialogType = {
     dialogPage: dialogReducerType
 }
 type MapDispatchDialogType = {
-    onSendMessageClick: (newMessageBody: string) => void
-    onNewMessageChange: (body: string) => void
+    onSendMessage: (newMessageText: string) => void
+    updateNewMessage: (newText: string) => void
 }
 export type DialogPropsType = MapStateDialogType & MapDispatchDialogType
 
 let mapStateToProps = (state: AppStateType) => {
     return {
-        dialogPage: state.dialogPage
-    }
-}
-let mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        onSendMessageClick: (newMessageBody: string) => {
-            dispatch(sendMessageCreator(newMessageBody));
-        },
-        onNewMessageChange: (body: string) => {
-            dispatch(updateNewMessageBodyCreator(body));
-        }
+        dialogPage: state.dialogPage,
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
-export default DialogsContainer;
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps,{onSendMessage,updateNewMessage})
+)(Dialogs)

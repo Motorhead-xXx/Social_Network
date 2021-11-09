@@ -6,17 +6,18 @@ import {HashRouter} from "react-router-dom";
 import {Grid} from "@material-ui/core";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import WithUrlDataProfileContainer from "./components/Profile/ProfileContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import LoginPage from "./components/login/Login";
 
 
 const App = () => {
     return (
         <HashRouter>
                     <Grid container>
-                        <Grid item xs={12} style={{border:"1px solid"}}>
+                        <Grid item xs={12}>
                             <HeaderContainer/>
                         </Grid>
-                        <Grid item xs={12} style={{border:"1px solid", backgroundColor:"#ecffea"}}>
+                        <Grid item xs={12} style={{minHeight:"100vh",padding:"10px", backgroundColor:"#ecffea"}}>
 
                             <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
 
@@ -24,10 +25,13 @@ const App = () => {
                                    render={() => <DialogsContainer/>}/>
 
                             <Route path="/profile/:userId?"
-                                   render={() => <WithUrlDataProfileContainer/>}/>
+                                   render={() => <ProfileContainer/>}/>
 
                             <Route path="/users"
                                    render={() => <UsersContainer/>}/>
+
+                            <Route path="/login"
+                                   render={() => <LoginPage/>}/>
                         </Grid>
                     </Grid>
         </HashRouter>

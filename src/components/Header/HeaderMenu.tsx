@@ -27,14 +27,14 @@ export const HeaderMenu = () => {
 
     const list = (anchor: Anchor) => (
         <Box
-            style={{backgroundColor:"#b5c9b3", height:"100%"}}
+            style={{backgroundColor:"rgb(2, 152, 142)", height:"100%", padding:"0"}}
             sx={{width: 250}}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
-            <List>
-                <ListItem>
+            <List style={{padding:"0", margin:"0"}}>
+                <ListItem style={{padding:"0", margin:"0"}}>
                     <Navbar/>
                 </ListItem>
             </List>

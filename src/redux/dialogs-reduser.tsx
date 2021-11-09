@@ -60,16 +60,8 @@ const dialogReducer = (state: dialogReducerType = initialState, action: ActionTy
             };
         }
         case SEND_MESSAGE: {
-            let body = state.newMessageText;
-            if (body !== "") {
-                return {
-                    ...state,
-                    newMessageText: "",
-                    messagesData: [...state.messagesData, {id: 6, message: body}]
-                }
-            } else {
-                return state
-            }
+            let text = state.newMessageText;
+           return  text !== "" ? {...state, newMessageText: "", messagesData: [...state.messagesData, {id: 6, message: text}]} : state
         }
         default:
             return state
@@ -77,12 +69,12 @@ const dialogReducer = (state: dialogReducerType = initialState, action: ActionTy
 }
 
 
-type ActionTypes = messageAC | updateMessageAC
-export type messageAC = ReturnType<typeof sendMessageCreator>
-export const sendMessageCreator = (newText: string) => ({type: SEND_MESSAGE, newText} as const)
+type ActionTypes = messageType | updateNewMessageType
+export type messageType = ReturnType<typeof onSendMessage>
+export const onSendMessage = (newText: string) => ({type: SEND_MESSAGE, newText} as const)
 
-export type updateMessageAC = ReturnType<typeof updateNewMessageBodyCreator>
-export const updateNewMessageBodyCreator = (newText: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText} as const)
+export type updateNewMessageType = ReturnType<typeof updateNewMessage>
+export const updateNewMessage = (newText: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText} as const)
 
 
 export default dialogReducer;
