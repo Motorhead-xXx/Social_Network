@@ -1,5 +1,5 @@
 import axios from "axios";
-import {usersType} from "../redux/user-reducer";
+import {usersType} from "../reducers/user-reducer";
 
 type getProfileType = {
     aboutMe: string

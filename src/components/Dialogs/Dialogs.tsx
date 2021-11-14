@@ -1,31 +1,58 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
-import style from './Dialogs.module.css'
+import React from "react";
 import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
 import {DialogPropsType} from "./DialogsContainer";
+import style from './Dialogs.module.css'
+import {useFormik} from 'formik';
+import {IconButton, TextField} from "@material-ui/core";
+import MessageComponent from "./Message/Message";
+import {Send} from "@material-ui/icons";
+
+type AddMessageType = {
+    onSendMessage: (values: string) => void
+}
+
+
+const AddMessageForm = (props: AddMessageType) => {
+    const message = useFormik({
+        initialValues: {
+            newMessage: '',
+        },
+        onSubmit: (values, {resetForm}) => {
+            props.onSendMessage(values.newMessage);
+            resetForm()
+        },
+    });
+    return (
+        <div>
+            <form onSubmit={message.handleSubmit}>
+                <div className={style.formDialogs}>
+                    <div>
+                        <TextField
+                            sx={{width: "500px", background: "#ffffdb"}}
+                            multiline={true}
+                            maxRows={10}
+                            onChange={message.handleChange}
+                            id="newMessage"
+                            name="newMessage"
+                            placeholder="New message..."
+                            value={message.values.newMessage}
+                            size={"small"}/>
+                    </div>
+                    <div>
+                        <IconButton color={"warning"} type="submit" aria-label="delete" size="small">
+                            <Send fontSize={"large"}/>
+                        </IconButton>
+                    </div>
+                </div>
+            </form>
+        </div>
+    )
+}
 
 const Dialogs = (props: DialogPropsType) => {
 
-
-    let dialogsElements = props.dialogPage.dialogsData.map(dialog => <DialogItem key={dialog.id} image={dialog.image}
-                                                                                 name={dialog.name} id={dialog.id}/>)
-    let messagesElements = props.dialogPage.messagesData.map(messages => <Message key={messages.id} message={messages.message}/>)
-
-    let newMessageBody = props.dialogPage.newMessageText;
-
-    let onSendMessageClick = () => {
-        props.onSendMessage(newMessageBody);
-    }
-    let onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = event.target.value;
-        props.updateNewMessage(body);
-    }
-
-    const keyClick = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.charCode === 13) {
-            onSendMessageClick()
-        }
-    }
+    let dialogsElements = props.dialogPage.dialogsData.map(dialog => <DialogItem key={dialog.id} image={dialog.image} name={dialog.name} id={dialog.id}/>)
+    let messagesElements = props.dialogPage.messagesData.map(messages => <MessageComponent key={messages.id} message={messages.message}/>)
 
     return (
         <div className={style.dialogs}>
@@ -35,9 +62,7 @@ const Dialogs = (props: DialogPropsType) => {
             <div className={style.messages}>
                 {messagesElements}
                 <div className={style.buttonMessage}>
-                    <textarea onChange={onNewMessageChange} onKeyPress={keyClick} placeholder="Enter your message"
-                              value={newMessageBody} className={style.textArea}/>
-                    <button onClick={onSendMessageClick}>Отправить</button>
+                    <AddMessageForm onSendMessage={props.onSendMessage}/>
                 </div>
             </div>
         </div>

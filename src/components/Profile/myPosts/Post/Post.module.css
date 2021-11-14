@@ -1,29 +1,18 @@
-.content{
-    grid-area: c;
-    background-color: cadetblue;
-}
-
 .item img{
     grid-area: i;
     width: 40px;
     border-radius: 40px;
-
 }
-
 .item{
- display: grid;
-    grid-template-areas: "i m" ;
-    grid-template-columns: 1fr 8fr;
+ display: flex;
+    gap: 10px;
 }
 .messagePost{
-    grid-area: m;
-    border: solid 2px;
     padding: 20px;
     border-radius: 30px;
 }
 
 .countLike {
-    display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;

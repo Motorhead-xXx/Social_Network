@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import Sidebar from "./SideBar/Sidebar";
-import {store} from "../../redux/redux-store";
+import {store} from "../../store/store";
 import {CardContent} from "@material-ui/core";
 import {EmojiEmotions, FiberNew, LibraryMusic, Markunread, Person, Settings} from "@material-ui/icons";
 
@@ -13,7 +13,6 @@ const Navbar = () => {
 
     return (
         <div className={style.nav}>
-
             <CardContent  >
             <div className={style.item}>
                 <Person/>
@@ -41,12 +40,12 @@ const Navbar = () => {
             </div>
             </CardContent>
 
-            <CardContent >
-            <div className={style.friendsSidebar}>
-                <h3>FRIENDS </h3>
-                <div className={style.sidebarElements}>{sidebarElements}</div>
-            </div>
-                </CardContent >
+            {/*<CardContent >*/}
+            {/*<div className={style.friendsSidebar}>*/}
+            {/*    <h3>FRIENDS </h3>*/}
+            {/*    <div className={style.sidebarElements}>{sidebarElements}</div>*/}
+            {/*</div>*/}
+            {/*    </CardContent >*/}
         </div>
     )
 

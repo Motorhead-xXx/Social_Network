@@ -2,10 +2,8 @@ import {Dispatch} from "redux";
 import {profileAPI} from "../api/settingAPI";
 
 const ADD_POST = 'ADD-POST',
-    UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
     SET_USERS_PROFILE = 'SET-USERS-PROFILE',
     SET_STATUS = 'SET-STATUS'
-
 
 export type ProfileType = {
     aboutMe: string
@@ -36,7 +34,6 @@ type postDataType = {
 }
 export type profileReducerType = {
     postData: Array<postDataType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }
@@ -47,7 +44,6 @@ let initialState: profileReducerType = {
         {id: 2, message: 'REDDISKA', likeCount: 77},
         {id: 3, message: 'Do you want me? ', likeCount: 107},
     ],
-    newPostText: '',
     profile: null,
     status: "",
 }
@@ -57,14 +53,7 @@ export const profileReduser = (state: profileReducerType = initialState, action:
         case ADD_POST: {
             return {
                 ...state,
-                postData: [{id: new Date().getTime(), message: state.newPostText, likeCount: 0}, ...state.postData],
-                newPostText: ""
-            }
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.postText
+                postData: [{id: new Date().getTime(), message: action.postText, likeCount: 0}, ...state.postData]
             }
         }
         case SET_USERS_PROFILE: {
@@ -78,13 +67,10 @@ export const profileReduser = (state: profileReducerType = initialState, action:
     }
 }
 
-type ActionTypes = addPostACType | newTextACType | setUsersProfileType|SetStatusType
+type ActionTypes = addPostType |setUsersProfileType|SetStatusType
 
-type addPostACType = ReturnType<typeof addPostAC>
-export const addPostAC = (postText: string) => ({type: ADD_POST, postText} as const)
-
-type newTextACType = ReturnType<typeof updateNewPostTextAC>
-export const updateNewPostTextAC = (postText: string) => ({type: UPDATE_NEW_POST_TEXT, postText} as const)
+type addPostType = ReturnType<typeof addPost>
+export const addPost = (postText: string) => ({type: ADD_POST, postText} as const)
 
 type setUsersProfileType = ReturnType<typeof setUsersProfile>
 export const setUsersProfile = (profile: ProfileType | null) => ({type: SET_USERS_PROFILE, profile} as const)

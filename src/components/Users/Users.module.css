@@ -56,10 +56,29 @@
     align-items: center;
 }
 
-/*.span{*/
-/*    display: block;*/
-/*    width: 150px;*/
-/*    overflow: hidden;*/
-/*    white-space: nowrap;*/
-/*    text-overflow: ellipsis;*/
+/*.containerWrapper{*/
+/*    margin: 0 10%;*/
 /*}*/
+
+@media (max-width: 433px) {
+    .containerWrapper{
+        margin: 3%;
+    }
+    .usersContainer{
+        gap: 2px;
+    }
+
+}
+@media (max-width: 368px){
+    .user{
+        min-width: 120px;
+        max-width: 120px;
+    }
+    .containerWrapper{
+        margin: 0;
+    }
+    .usersContainer{
+        gap: 5px;
+        justify-content: center;
+    }
+}

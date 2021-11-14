@@ -1,13 +1,25 @@
 .header {
-    grid-area: h;
-    background-color: bisque;
-    border-radius: 10px;
+    padding: 0;
 }
 
-.header img {
-    margin-left: 20px;
-    width: 50px;
-    height: 50px;
+.headerMenu {
+    display: initial;
+}
+
+.content{
+    width: 950px;
+    padding: 5px 10px;
+}
+
+.navbarApp {
+    width: 250px;
+}
+
+.wrapperContent{
+padding:10px 10%;
+justify-content: space-between;
+min-height: 100vh;
+background: #dafdd3;
 }
 
 .photoHeader {
@@ -23,4 +35,22 @@
     gap: 15px;
     align-items: center;
     margin: 6px 0 0 0;
+}
+
+@media (min-width: 1368px) {
+    .headerMenu {
+        display: none;
+    }
+}
+
+@media(max-width: 1368px) {
+    .navbarApp {
+        display: none;
+    }
+    .wrapperContent{
+        padding:10px 5px;
+    }
+    .content{
+        padding: 0;
+    }
 }

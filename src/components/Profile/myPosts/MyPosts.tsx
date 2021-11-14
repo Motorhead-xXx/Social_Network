@@ -1,48 +1,61 @@
-import React, {KeyboardEvent} from 'react';
+import React from 'react';
 import style from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostPropsType} from "./MyPostsContainer";
+import {Button, Paper, TextField, Typography} from "@material-ui/core";
+import {useFormik} from "formik";
 
 const MyPosts = (props: PostPropsType) => {
-
     let postsElements = props.profilePage.postData.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
-
-    let addPosts = () => {
-        let text = newPostElement.current?.value;
-       text && props.addPosts(text);
-        // let text = newPostElement.current?.value;
-        // text && props.dispatch(addPostActionCreator(text))
-    }
-
-    let onPostChange = () => {
-        let text = newPostElement.current?.value;
-        text && props.onPostChange(text)
-        // text && props.dispatch(updateNewPostTextActionCreator(text))
-    }
-
-    const keyClick = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.charCode === 13) {
-            addPosts()
+    let addPost = (values: string) => {
+        if(values !== ""){
+            props.addPost(values)
         }
     }
 
     return (
-        <div>
-            <h3> My posts </h3>
-            <div>
-                <textarea onKeyPress={keyClick} onChange={onPostChange} ref={newPostElement} value={props.profilePage.newPostText}/>
-            </div>
-            <div>
-                <button onClick={addPosts}>Add post</button>
-            </div>
-
-            <div className={style.posts}>
-                {postsElements}
-            </div>
+        <div className={style.containerPost}>
+            <Paper elevation={3} className={style.addPost}>
+                <AddNewPost onSubmit={addPost}/>
+            </Paper>
+            <Paper elevation={3} className={style.posts}>
+                <div className={style.posts}>
+                    {postsElements}
+                </div>
+            </Paper>
         </div>
     )
 }
+
+const AddNewPost = ({onSubmit}: { onSubmit: (values: string) => void }) => {
+    const post = useFormik({
+        initialValues: {
+            newPostText: '',
+        },
+        onSubmit: (values,{resetForm}) => {
+            onSubmit(values.newPostText);
+            resetForm()
+        },
+    });
+    return (
+        <div>
+            <form onSubmit={post.handleSubmit} >
+                <div>
+                    <TextField sx={{width: "400px"}} size={"small"} color={"success"}
+                                id="newPostText"
+                                name="newPostText"
+                                label="New post..."
+                                value={post.values.newPostText}
+                                onChange={post.handleChange}
+                />
+                    <Button color={"warning"} variant={"contained"} type="submit">Submit</Button>
+                </div>
+            </form>
+        </div>
+
+    )
+}
+
 
 export default MyPosts;

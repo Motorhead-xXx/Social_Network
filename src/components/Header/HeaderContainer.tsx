@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from "./Header";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../store/store";
 import {connect} from "react-redux";
-import {authUserLogin} from "../../redux/auth-reducer";
+import {authUserLogin} from "../../reducers/auth-reducer";
 
 type MapStateUserType = {
     isAuth: boolean,

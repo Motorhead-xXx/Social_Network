@@ -1,12 +1,45 @@
+*{
+    box-sizing: border-box;
+}
 
+body{
+    margin: 3px;
+}
+@font-face {
+    font-family: 'Varela Round', sans-serif;
+    src: url(https://fonts.googleapis.com/css2?family=Varela+Round&display=swap);
+}
 
 .MuiCardContent-root{
-    background-color: rgb(2, 152, 142);
     font-weight: bold;
     color: #e8e8e8;
     margin: 0;
 }
 
 .MuiCardContent-root:hover{
-    background: #ED6C02;
+    font-family: 'Varela Round',sans-serif;
 }
+
+.MuiAppBar-root{
+    padding: 0 10%;
+}
+
+@media (min-width: 600px) {
+    .MuiToolbar-root.MuiToolbar-gutters {
+        padding-left: 0px;
+        padding-right: 10px;
+        min-height: 70px;
+    }
+}
+
+@media (max-width: 600px){
+    .MuiAppBar-root{
+        padding: 0;
+    }
+    .MuiToolbar-root.MuiToolbar-gutters {
+        padding-left: 0px;
+        padding-right: 20px;
+        min-height: 70px;
+    }
+}
+

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../store/store";
 import React from "react";
 import {Users} from "./Users";
 import s from "./Users.module.css";
@@ -9,10 +9,11 @@ import {
     setCurrentPage,
     unfollow,
     usersType
-} from "../../redux/user-reducer";
+} from "../../reducers/user-reducer";
 import {Pagination} from "@material-ui/core";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {Paper} from "@mui/material";
 
 type MapStateUserType = {
     users: usersType[]
@@ -30,6 +31,15 @@ export type MapDispatchPropsType = {
 }
 type UsersPropsType = MapStateUserType & MapDispatchPropsType
 
+const stylePaginatorPaper = {
+    margin: "10px 0 0 0",
+    minWidth: "100%",
+    minHeight: "40px",
+    alignItems: "center",
+    display: "flex"
+}
+
+
 class UsersContainer extends React.Component<UsersPropsType, {}> {
 
     componentDidMount() {
@@ -45,12 +55,14 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
         let pagesCount = Math.ceil(this.props.totalUserCount / this.props.pageSize)
 
         return (
-            <div>
+            <div className={s.containerWrapper}>
                 <div className={s.paginator}>
-                    <Pagination sx={{padding:"10px 0 15px 0"}} color={"warning"} onChange={(event, page) => {
-                        this.onPageChanged(page)
-                    }}
-                                count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={22} size={"small"}/>
+
+                    <Paper sx={stylePaginatorPaper}>
+                        <Pagination color={"standard"} onChange={(event, page) => {
+                            this.onPageChanged(page)
+                        }} count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={14}
+                                    size={"small"}/></Paper>
                 </div>
                 <>
                     {this.props.isFetching ? <Preloader/>

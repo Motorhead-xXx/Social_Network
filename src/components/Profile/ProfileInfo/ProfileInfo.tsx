@@ -1,22 +1,33 @@
 import React from "react";
-import {ProfileType} from "../../../redux/profile-reducer";
+import {ProfileType} from "../../../reducers/profile-reducer";
 import {ProfileStatus} from "./ProfileStatus";
+import image from '../../../images/spiderMan.svg'
+import {Paper} from "@material-ui/core";
+import style from './ProfileInfo.module.css'
 
 type ProfileInfoComponentType = {
-    profile: ProfileType|null
+    profile: ProfileType | null
     status: string
-    updateStatus: (status:string) => void
+    updateStatus: (status: string) => void
 }
+
+// let styleProfile2 = {
+//     width: "100%",
+//     height: "400px",
+// }
 
 const ProfileInfo = (props: ProfileInfoComponentType) => {
     return (
         <div>
             <div>
-                <div>
-                    <img src={props.profile?.photos.large} alt={"Images profile"}/>
+                <div className={style.containerProfileData}>
+                    <Paper elevation={3} className={style.wrapper}>
+                            <img className={style.imageProfile} src={props.profile?.photos.large || image} alt={"Images profile"}/>
+                            <div className={style.info}>
+                                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                        </div>
+                    </Paper>
 
-                    <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
-<br/>
                 </div>
 
             </div>

@@ -27,7 +27,8 @@ export const HeaderMenu = () => {
 
     const list = (anchor: Anchor) => (
         <Box
-            style={{backgroundColor:"rgb(2, 152, 142)", height:"100%", padding:"0"}}
+            style={{ background:"linear-gradient(326deg, rgba(255,108,2,1) 30%, rgba(2,152,142,1) 67%)",
+                height:"100%", padding:"0"}}
             sx={{width: 250}}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}

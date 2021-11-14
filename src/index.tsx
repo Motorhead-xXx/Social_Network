@@ -1,10 +1,10 @@
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
-
 import App from "./App";
 import React from "react";
-import {store} from "./redux/redux-store";
+
 import {Provider} from "react-redux";
+import {store} from "./store/store";
 
 
 let rerenderEntireTree = () => {
@@ -16,7 +16,6 @@ let rerenderEntireTree = () => {
     );
 }
 rerenderEntireTree()
-
 store.subscribe(()=>{
     rerenderEntireTree()
 });

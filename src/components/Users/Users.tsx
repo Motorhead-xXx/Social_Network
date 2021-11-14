@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Users.module.css"
-import {usersType} from "../../redux/user-reducer";
+import {usersType} from "../../reducers/user-reducer";
 import {NavLink} from "react-router-dom";
 import {Avatar, Button, Paper} from "@material-ui/core";
 

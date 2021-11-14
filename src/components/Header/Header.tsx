@@ -13,8 +13,10 @@ type HeaderPropsType = {
 const Header = (props: HeaderPropsType) => {
     return (
         <AppBar style={{backgroundColor: "#02988e"}} position={"relative"}>
-            <Toolbar>
-                <HeaderMenu/>
+            <Toolbar className={s.headerMain}>
+                <div className={s.headerMenu}>
+                    <HeaderMenu/>
+                </div>
                 <Typography variant={"h1"} component="div" sx={{flexGrow: 1}}/>
 
                 {props.isAuth ? <div className={s.login}><img className={s.photoHeader} src={props.photo ? props.photo : headerImages}/>{props.login}</div>

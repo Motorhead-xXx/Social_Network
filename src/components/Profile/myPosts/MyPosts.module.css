@@ -1,0 +1,33 @@
+/*.post {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    flex-direction: column;*/
+/*    margin: 0;*/
+/*    padding: 10px;*/
+/*    gap: 10px;*/
+/*}*/
+
+.containerPost {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.addPost{
+    width: 100%;
+    min-height: 100px;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.posts{
+    width: 100%;
+    min-height: 100px;
+    display:flex;
+    flex-direction: column;
+    justify-content:start;
+    align-items: start;
+}

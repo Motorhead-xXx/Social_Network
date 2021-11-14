@@ -7,33 +7,45 @@ import {Grid} from "@material-ui/core";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import LoginPage from "./components/login/Login";
-
+import {Login} from "./components/login/Login";
+import Navbar from "./components/Navbar/Navbar";
+import {Paper} from "@mui/material";
+import style from './components/Header/Header.module.css'
 
 const App = () => {
     return (
         <HashRouter>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <HeaderContainer/>
-                        </Grid>
-                        <Grid item xs={12} style={{minHeight:"100vh",padding:"10px", backgroundColor:"#ecffea"}}>
+            <Grid container>
 
-                            <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
+                <Grid item xs={12}>
+                    <HeaderContainer/>
+                </Grid>
 
-                            <Route path="/dialogs"
-                                   render={() => <DialogsContainer/>}/>
+                <Grid container className={style.wrapperContent} >
+                       
+                        <Paper elevation={0} className={style.navbarApp}>
+                                <Navbar/>
+                        </Paper>
 
-                            <Route path="/profile/:userId?"
-                                   render={() => <ProfileContainer/>}/>
+                    <Paper elevation={0} className={style.content}>
+                        <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
 
-                            <Route path="/users"
-                                   render={() => <UsersContainer/>}/>
+                        <Route path="/dialogs"
+                               render={() => <DialogsContainer/>}/>
 
-                            <Route path="/login"
-                                   render={() => <LoginPage/>}/>
-                        </Grid>
-                    </Grid>
+                        <Route path="/profile/:userId?"
+                               render={() => <ProfileContainer/>}/>
+
+                        <Route path="/users"
+                               render={() => <UsersContainer/>}/>
+
+                        <Route path="/login"
+                               render={() => <Login/>}/></Paper>
+
+                </Grid>
+
+            </Grid>
+
         </HashRouter>
     )
 

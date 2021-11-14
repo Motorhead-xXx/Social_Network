@@ -29,7 +29,7 @@ type usersReduceType = {
 
 let initialState = {
     users: [],
-    pageSize: 64,
+    pageSize: 54,
     totalUserCount: 0,
     currentPage: 1,
     isFetching: false,
