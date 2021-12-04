@@ -11,9 +11,9 @@ import {
     usersType
 } from "../../reducers/user-reducer";
 import {Pagination} from "@material-ui/core";
-import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Paper} from "@mui/material";
+import {getCurrentPage, getFollowingProgress, getIsFetching, getPageSize, getTotalCount, getUsersSelect} from "../../reducers/users-selector";
 
 type MapStateUserType = {
     users: usersType[]
@@ -32,7 +32,6 @@ export type MapDispatchPropsType = {
 type UsersPropsType = MapStateUserType & MapDispatchPropsType
 
 const stylePaginatorPaper = {
-    margin: "10px 0 0 0",
     minWidth: "100%",
     minHeight: "40px",
     alignItems: "center",
@@ -61,7 +60,7 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
                     <Paper sx={stylePaginatorPaper}>
                         <Pagination color={"standard"} onChange={(event, page) => {
                             this.onPageChanged(page)
-                        }} count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={14}
+                        }} count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={13}
                                     size={"small"}/></Paper>
                 </div>
                 <>
@@ -80,18 +79,17 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
     }
 }
 
-let mapStateToProps = (state: AppStateType): MapStateUserType => {
+let mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingProgress: state.usersPage.followingProgress,
+        users: getUsersSelect(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingProgress(state),
     }
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers})
 )(UsersContainer)

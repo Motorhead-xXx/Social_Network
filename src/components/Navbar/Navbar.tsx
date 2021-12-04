@@ -9,35 +9,44 @@ import {EmojiEmotions, FiberNew, LibraryMusic, Markunread, Person, Settings} fro
 
 const Navbar = () => {
 
-  let sidebarElements = store.getState().sidebar.imagesData.map((item) => <Sidebar image={item.image}/>)
+    // let sidebarElements = store.getState().sidebar.imagesData.map((item) => <Sidebar image={item.image}/>)
 
     return (
         <div className={style.nav}>
-            <CardContent  >
-            <div className={style.item}>
-                <Person/>
-                <NavLink to="/profile" activeClassName={style.active}> Profile</NavLink>
-            </div>
-            <div className={style.item}>
-                <Markunread/>
-                <NavLink to="/dialogs" activeClassName={style.active}>Messages</NavLink>
-            </div>
-            <div className={style.item}>
-                <EmojiEmotions/>
-                <NavLink to="/users" activeClassName={style.active}>Users</NavLink>
-            </div>
-            <div className={style.item}>
-                <FiberNew />
-                <a>News</a>
-            </div>
-            <div className={style.item}>
-                <LibraryMusic/>
-                <a>Music</a>
-            </div>
-            <div className={style.item}>
-                <Settings/>
-                <a>Settings</a>
-            </div>
+            <CardContent className={style.wrapperItems}>
+
+                <NavLink to="/profile" activeClassName={style.active}>
+                    <div className={style.item}>
+                        <Person/>
+                        <span className={style.spanLink}>Profile</span>
+                    </div>
+                </NavLink>
+                <NavLink to="/dialogs" activeClassName={style.active}>
+                    <div className={style.item}>
+                        <Markunread/>
+                        <span className={style.spanLink}>Messages</span>
+                    </div>
+                </NavLink>
+                <NavLink to="/users" activeClassName={style.active}>
+                    <div className={style.item}>
+                        <EmojiEmotions/>
+                        <span className={style.spanLink}>Users</span>
+                    </div>
+                </NavLink>
+                <a>
+                    <div className={style.item}>
+                        <FiberNew/>
+                        <span className={style.spanLink}>News</span>
+                    </div>
+                </a>
+                <div className={style.item}>
+                    <LibraryMusic/>
+                    <span>Music</span>
+                </div>
+                <div className={style.item}>
+                    <Settings/>
+                    <span>Settings</span>
+                </div>
             </CardContent>
 
             {/*<CardContent >*/}
@@ -48,7 +57,6 @@ const Navbar = () => {
             {/*    </CardContent >*/}
         </div>
     )
-
 }
 
 export default Navbar;

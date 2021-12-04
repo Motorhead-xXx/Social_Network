@@ -2,6 +2,7 @@
     font-family: 'Varela Round', sans-serif;
     src: url(https://fonts.googleapis.com/css2?family=Varela+Round&display=swap);
 }
+
 .nav {
     display: flex;
     flex-direction: column;
@@ -13,33 +14,35 @@
     padding: 0;
 }
 
-.item a {
-    text-decoration: none;
-    color: #e8e8e8;
-    font-family: 'Varela Round',sans-serif;
-}
-
-.item a:hover {
+.item:hover {
     text-decoration: none;
     color: rgb(250, 118, 0);
-    font-family: 'Varela Round',sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
+
+.wrapperItems {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
 .item {
     display: flex;
-    height: auto;
-    width: 60px;
-    margin-bottom: 10px;
+    height: 35px;
+    width: 100%;
     align-items: center;
     gap: 10px;
     font-size: large;
-    font-family: 'Varela Round',sans-serif;
+    font-family: 'Varela Round', sans-serif;
+    border-bottom: 1px solid gray;
+    color: #e8e8e8;
 }
 
-a.active {
-    color: #fff700;
+.active {
+
     font-size: x-large;
     font-weight: bolder;
-    font-family: 'Varela Round',sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .friendsSidebar {
@@ -49,20 +52,20 @@ a.active {
     flex-wrap: wrap;
     justify-content: space-between;
     flex-direction: column;
-    font-family: 'Varela Round',sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .sidebarImg {
     width: 30px;
     border-radius: 40px;
-    font-family: 'Varela Round',sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 .sidebarElements {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    font-family: 'Varela Round',sans-serif;
+    font-family: 'Varela Round', sans-serif;
 }
 
 @media (min-width: 1200px) {
@@ -74,5 +77,9 @@ a.active {
 
     .item {
         color: rgba(2, 152, 142, 1);
+    }
+
+    .active {
+        background-color: #ffd5b3;
     }
 }

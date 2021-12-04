@@ -4,6 +4,7 @@ import {ProfileStatus} from "./ProfileStatus";
 import image from '../../../images/spiderMan.svg'
 import {Paper} from "@material-ui/core";
 import style from './ProfileInfo.module.css'
+import {ProfileStatusWidthHook} from "./ProfileStatusWidthHook";
 
 type ProfileInfoComponentType = {
     profile: ProfileType | null
@@ -24,7 +25,8 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
                     <Paper elevation={3} className={style.wrapper}>
                             <img className={style.imageProfile} src={props.profile?.photos.large || image} alt={"Images profile"}/>
                             <div className={style.info}>
-                                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                                {/*<ProfileStatus status={props.status} updateStatus={props.updateStatus}/>*/}
+                                <ProfileStatusWidthHook status={props.status} updateStatus={props.updateStatus}/>
                         </div>
                     </Paper>
 

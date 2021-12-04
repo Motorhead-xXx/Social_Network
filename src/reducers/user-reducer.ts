@@ -1,4 +1,4 @@
-import {userAPI} from "../api/settingAPI";
+import {userAPI} from "../api/paramsAPI";
 import {Dispatch} from "redux";
 
 export enum ACTIONS_TYPE {

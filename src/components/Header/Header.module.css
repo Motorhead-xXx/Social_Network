@@ -8,11 +8,11 @@
 
 .content{
     width: 950px;
-    padding: 5px 10px;
 }
 
 .navbarApp {
     width: 250px;
+    max-height: 40vh;
 }
 
 .wrapperContent{
