@@ -2,12 +2,11 @@ import React from 'react';
 import style from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostPropsType} from "./MyPostsContainer";
-import {Button, Paper, TextField} from "@material-ui/core";
+import {Button, Paper, TextField, Typography} from "@material-ui/core";
 import {useFormik} from "formik";
 
-const MyPosts = React.memo( (props: PostPropsType) => {
-    console.log("React")
-    let postsElements = props.profilePage.postData.map(post => <Post key={post.id} message={post.message} likeCount={post.likeCount}/>)
+const MyPosts = (props: PostPropsType) => {
+    let postsElements = props.profilePage.postData.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
 
     let addPost = (values: string) => {
         if(values !== ""){
@@ -27,7 +26,7 @@ const MyPosts = React.memo( (props: PostPropsType) => {
             </Paper>
         </div>
     )
-})
+}
 
 const AddNewPost = ({onSubmit}: { onSubmit: (values: string) => void }) => {
     const post = useFormik({
