@@ -1,27 +1,42 @@
 import React from "react";
-import {useFormik, Field} from "formik";
+import {useFormik} from "formik";
 import style from './LoginStyle.module.css'
 import {Button, Checkbox, FormControlLabel, Paper, TextField, Typography} from "@material-ui/core";
 import * as yup from 'yup';
+import {connect} from "react-redux";
+import {loginTC} from "../../reducers/auth-reducer";
+import {Redirect} from "react-router-dom";
+import {AppStateType} from "../../store/store";
+import {LoginApiType} from "../../api/paramsAPI";
+import ErrorSnackbars from "../common/errorSnackbar";
 
+type mapDispatchToPropsType = {
+    loginTC: (data:LoginApiType) => void
+}
+
+type mapStateToProsType = {
+    isAuth: boolean
+}
+
+type loginType = mapStateToProsType & mapDispatchToPropsType
 
 const validationSchema = yup.object({
     email: yup.string()
         .email('Enter a valid email')
         .required('Email is required'),
     password: yup.string()
-        .min(6, 'Password should be of minimum 6 characters length')
-        .matches(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/, "Password must meet complexity requirements")
+        .min(4, 'Password should be of minimum 4 characters length')
+        // .matches(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/, "Password must meet complexity requirements")
         .required('Password is required')
 
 });
 
-const LoginForm = (props: any) => {
+const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            toggle: false,
+            rememberMe: false,
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -32,11 +47,11 @@ const LoginForm = (props: any) => {
         <div>
             <form onSubmit={formik.handleSubmit}>
                 <div className={style.form}>
-                    <div className={style.loginFormContainer}>
-                        <Typography color={"orange"} component={"h2"} variant={"h4"}>
+                    <Paper className={style.loginFormContainer}>
+                        <Typography color={"orange"} component={"h1"} variant={"h4"} fontSize={"xxx-large"}>
                             Login
                         </Typography>
-                        <TextField sx={{maxWidth: "400px",minWidth: "350px"}} size={"small"} color={"success"}
+                        <TextField sx={{maxWidth: "400px", minWidth: "350px"}} size={"small"} color={"success"}
                                    id="email"
                                    name="email"
                                    label="Email"
@@ -57,22 +72,34 @@ const LoginForm = (props: any) => {
                                    helperText={formik.touched.password && formik.errors.password}
                                    required
                         />
-                        <FormControlLabel onChange={formik.handleChange} control={<Checkbox defaultChecked name={"toggle"}/>} label="Label"/>
+                        <FormControlLabel onChange={formik.handleChange} control={<Checkbox {...formik.getFieldProps("rememberMe")}
+                                                                                            checked={formik.values.rememberMe}/>} label="Remember me"/>
                         <Button color={"warning"} variant={"contained"} type="submit">Submit</Button>
-                    </div>
+
+                    </Paper>
                 </div>
             </form>
         </div>
     )
 }
 
-export const Login = () => {
-    const submitOn = (values: any) => {
-        console.log(values)
+const Login = (props: loginType) => {
+    const submitOn = (values:LoginApiType) => {
+        props.loginTC(values)
+    }
+    if (props.isAuth) {
+        return <Redirect to={"/profile"}/>
     }
     return (
         <div>
             <LoginForm onSubmit={submitOn}/>
+            <ErrorSnackbars/>
         </div>
     )
 }
+const mapStateToProps = (state: AppStateType): mapStateToProsType => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+export default connect(mapStateToProps, {loginTC})(Login)

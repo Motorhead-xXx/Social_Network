@@ -15,10 +15,10 @@ let initialState: sidebarReducerType = {
     ]
 }
 
-const sidebarReducer = (state: sidebarReducerType = initialState, action: ActionTypes) => {
+const sidebarReducer = (state: sidebarReducerType = initialState, action: SideBarActionTypes) => {
     return state
 }
 
-type ActionTypes = {}
+export type SideBarActionTypes = {}
 
 export default sidebarReducer;

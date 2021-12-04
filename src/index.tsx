@@ -2,15 +2,15 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import App from "./App";
 import React from "react";
-
 import {Provider} from "react-redux";
 import {store} from "./store/store";
+import {HashRouter} from "react-router-dom";
 
 
 let rerenderEntireTree = () => {
     ReactDOM.render(
             <Provider store={store}>
-                <App />
+                <HashRouter><App/></HashRouter>
             </Provider>
         , document.getElementById('root')
     );

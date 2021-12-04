@@ -32,7 +32,6 @@ export type MapDispatchPropsType = {
 type UsersPropsType = MapStateUserType & MapDispatchPropsType
 
 const stylePaginatorPaper = {
-    margin: "10px 0 0 0",
     minWidth: "100%",
     minHeight: "40px",
     alignItems: "center",
@@ -61,7 +60,7 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
                     <Paper sx={stylePaginatorPaper}>
                         <Pagination color={"standard"} onChange={(event, page) => {
                             this.onPageChanged(page)
-                        }} count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={14}
+                        }} count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={13}
                                     size={"small"}/></Paper>
                 </div>
                 <>
@@ -92,6 +91,5 @@ let mapStateToProps = (state: AppStateType): MapStateUserType => {
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
     connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers})
 )(UsersContainer)

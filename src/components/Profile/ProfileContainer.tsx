@@ -10,6 +10,8 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 type mapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    authorizedUserId: number| null
+    isAuth: boolean
 }
 
 type PathParamsType = {
@@ -17,8 +19,8 @@ type PathParamsType = {
 }
 
 type mapDispatchToPropsType = {
-    getCurrenUsersProfile: (userId: string) => void
-    getStatusProfile: (userId: string) => void
+    getCurrenUsersProfile: (userId: number|null) => void
+    getStatusProfile: (userId: number|null) => void
     updateStatus: (status:string) => void
 }
 
@@ -27,12 +29,15 @@ type OwnPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId: number | null = +this.props.match.params.userId
         if (!userId) {
-            userId = "20026";
+            userId = this.props.authorizedUserId;
         }
-        this.props.getCurrenUsersProfile(userId)
-        this.props.getStatusProfile(userId)
+        if (!userId){
+            this.props.history.push("/login")
+        }
+            this.props.getCurrenUsersProfile(userId)
+            this.props.getStatusProfile(userId)
     }
 
     render() {
@@ -50,12 +55,14 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getCurrenUsersProfile, getStatusProfile,updateStatus}),
-    withAuthRedirect,
+    // withAuthRedirect,
     withRouter,
 )(ProfileContainer)

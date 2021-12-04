@@ -48,7 +48,7 @@ let initialState: dialogReducerType = {
     ],
 }
 
-const dialogReducer = (state: dialogReducerType = initialState, action: ActionTypes) => {
+const dialogReducer = (state: dialogReducerType = initialState, action: DialogActionTypes) => {
     switch (action.type) {
         case SEND_MESSAGE: {
             let text = action.newMessageText;
@@ -59,8 +59,8 @@ const dialogReducer = (state: dialogReducerType = initialState, action: ActionTy
     }
 }
 
-type ActionTypes = messageType
-export type messageType = ReturnType<typeof onSendMessage>
+export type DialogActionTypes = MessageType
+export type MessageType = ReturnType<typeof onSendMessage>
 export const onSendMessage = (newMessageText: string) => ({type: SEND_MESSAGE, newMessageText} as const)
 
 export default dialogReducer;

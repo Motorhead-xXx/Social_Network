@@ -22,11 +22,11 @@ export const Users = (props: UsersType) => {
         <div className={s.usersContainer}>
             {usersDisplay.map(u =>
                 <Paper elevation={3} sx={{borderRadius:"20px"}}>
-                    <div key={u.id}>
+                    <div>
                         <div className={s.user}>
                             <div>
                                 <NavLink to={'/profile/' + u.id}>
-                                    <div>
+                                    <div key={u.id}>
                                         {u.photos.small !== null ? <img src={u.photos.small} className={s.userPhoto}/>
                                             : <Avatar className={s.userPhoto} sx={{
                                                 fontSize: "50px",

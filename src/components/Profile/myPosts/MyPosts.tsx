@@ -6,7 +6,7 @@ import {Button, Paper, TextField, Typography} from "@material-ui/core";
 import {useFormik} from "formik";
 
 const MyPosts = (props: PostPropsType) => {
-    let postsElements = props.profilePage.postData.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
+    let postsElements = props.profilePage.postData.map(post => <Post key={post.id} message={post.message} likeCount={post.likeCount}/>)
 
     let addPost = (values: string) => {
         if(values !== ""){
