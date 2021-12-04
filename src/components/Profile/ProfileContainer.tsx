@@ -9,7 +9,7 @@ import {compose} from "redux";
 type mapStateToPropsType = {
     profile: ProfileType | null
     status: string
-    authorizedUserId: number| null
+    authorizedUserId: number | null
     isAuth: boolean
 }
 
@@ -18,26 +18,37 @@ type PathParamsType = {
 }
 
 type mapDispatchToPropsType = {
-    getCurrenUsersProfile: (userId: number|null) => void
-    getStatusProfile: (userId: number|null) => void
-    updateStatus: (status:string) => void
+    getCurrenUsersProfile: (userId: number | null) => void
+    getStatusProfile: (userId: number | null) => void
+    updateStatus: (status: string) => void
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 type OwnPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 class ProfileContainer extends React.Component<PropsType> {
-    componentDidMount() {
+
+    refreshProfile() {
         let userId: number | null = +this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId;
         }
-        if (!userId){
+        if (!userId) {
             this.props.history.push("/login")
         }
+        if (!userId) {
+            console.error("ID should exist in URL params or in state ('authirizedUserId')");
+        } else {
             this.props.getCurrenUsersProfile(userId)
             this.props.getStatusProfile(userId)
+        }
     }
+
+
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
 
     render() {
 
@@ -45,7 +56,7 @@ class ProfileContainer extends React.Component<PropsType> {
             <div>
                 <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
             </div>
-    )
+        )
     }
 }
 
@@ -61,7 +72,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getCurrenUsersProfile, getStatusProfile,updateStatus}),
+    connect(mapStateToProps, {getCurrenUsersProfile, getStatusProfile, updateStatus}),
     // withAuthRedirect,
     withRouter,
 )(ProfileContainer)

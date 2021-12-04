@@ -29,5 +29,17 @@ export type RootAppActionType =
 
 export type AppThunkType<ReturnType=void> = ThunkAction<void, AppStateType, unknown, RootAppActionType>
 
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1
+}
+
+export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
+    data: D
+    messages: Array<string>
+    resultCode: RC
+}
+
+
 //@ts-ignore
 window.store= store

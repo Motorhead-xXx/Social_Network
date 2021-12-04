@@ -1,6 +1,7 @@
 import {authAPI, LoginApiType} from "../api/paramsAPI";
 import {Dispatch} from "redux";
 import {setAppError} from "./app-reducer";
+import {AppThunkType} from "../store/store";
 
 
 const SET_USER_DATA = "SET-USER-DATA"
@@ -15,7 +16,7 @@ type AuthReduceType = {
     photo: string | null
 }
 
-let initialState = {
+let initialState: AuthReduceType = {
     id: null,
     email: null,
     login: null,
@@ -23,7 +24,7 @@ let initialState = {
     photo: null,
 }
 
-export const authReducer = (state: AuthReduceType = initialState, action: ActionAuthReducerType): AuthReduceType => {
+export const authReducer = (state = initialState, action: ActionAuthReducerType): AuthReduceType => {
     switch (action.type) {
         case SET_USER_DATA: {
             return {...state, ...action.data}
@@ -47,39 +48,27 @@ export const setUsersData = (id: number | null, email: string | null, login: str
 type SetPhotoLoginType = ReturnType<typeof setPhotoLogin>
 export const setPhotoLogin = (photo: string) => ({type: SET_PHOTO, photo} as const)
 
-export const authUserLogin = () => (dispatch: Dispatch) => {
-  return authAPI.me()
-        .then(response => {
-            if (response.resultCode === 0) {
-                const {id, email, login} = response.data;
-                dispatch(setUsersData(id, email, login, true))
-                return response
-            }
-        })
-
+export const authUserLogin = () => async (dispatch: Dispatch) => {
+    let response = await authAPI.me()
+    if (response.resultCode === 0) {
+        const {id, email, login} = response.data;
+        dispatch(setUsersData(id, email, login, true))
+    }
+    return response
 }
 
-export const loginTC = (data: LoginApiType) => (dispatch: Dispatch) => {
-    authAPI.login(data).then((res) => {
-        if (res.data.resultCode === 0) {
-            authAPI.me()
-                .then(response => {
-                    if (response.resultCode === 0) {
-                        const {id, email, login} = response.data;
-                        dispatch(setUsersData(id, email, login, true))
-                    }
-                })
-        }else {
-            dispatch(setAppError(res.data.messages[0]))
-        }
-    })
+export const loginTC = (data: LoginApiType): AppThunkType => async (dispatch) => {
+    let res = await authAPI.login(data)
+    if (res.data.resultCode === 0) {
+        dispatch(authUserLogin())
+    } else {
+        dispatch(setAppError(res.data.messages[0]))
+    }
 }
-export const logOut = () => (dispatch: Dispatch) => {
-    authAPI.logOut()
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(setUsersData(null, null, null, false))
-            }
-        })
+export const logOut = () => async (dispatch: Dispatch) => {
+    let res = await authAPI.logOut()
+    if (res.data.resultCode === 0) {
+        dispatch(setUsersData(null, null, null, false))
+    }
 }
 

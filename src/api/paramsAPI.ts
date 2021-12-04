@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import {usersType} from "../reducers/user-reducer";
+import {APIResponseType} from "../store/store";
 
 type getProfileType = {
     aboutMe: string
@@ -46,7 +47,7 @@ export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        "API-KEY": "8cfe719b-61ef-4519-9519-1e1d9dd44f52"
+        "API-KEY": "21d990e0-eae8-42bd-a185-362e1cc41b0a"
     }
 });
 
@@ -57,11 +58,11 @@ export const userAPI = {
     },
 
     unfollowUsers(id: number) {
-        return instance.delete<ResponseType>(`follow/${id}`)
+        return instance.delete<ResponseType>(`follow/${id}`).then(res=>res.data)
     },
 
     followUsers(id: number) {
-        return instance.post<ResponseType>(`follow/${id}`)
+        return instance.post<APIResponseType>(`follow/${id}`).then(res=> res.data)
     },
 }
 

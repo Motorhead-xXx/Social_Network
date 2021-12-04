@@ -22,7 +22,7 @@
     height: 100%;
     margin-top: 10px;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 20px;
     justify-content: space-between;
     align-items: center;
 }
@@ -38,6 +38,7 @@
     font-weight: bold;
     padding: 7px;
     font-family: 'Varela Round', sans-serif;
+    margin-bottom: 15px
 }
 
 
@@ -66,20 +67,25 @@
         margin: 3%;
     }
     .usersContainer{
-        gap: 2px;
+        gap: 12px;
+        justify-content: space-evenly;
+    }
+    .user{
+        min-width: 160px;
+        margin-bottom: 15px
     }
 
 }
-@media (max-width: 368px){
+@media (max-width: 376px){
     .user{
-        min-width: 120px;
-        max-width: 120px;
+        min-width: 170px;
+        margin-bottom: 15px ;
     }
     .containerWrapper{
         margin: 0;
     }
     .usersContainer{
-        gap: 5px;
+        gap: 10px;
         justify-content: center;
     }
 }
