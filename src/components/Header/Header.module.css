@@ -6,20 +6,22 @@
     display: initial;
 }
 
-.content{
-    width: 950px;
+.content {
+    width: 100%;
 }
 
 .navbarApp {
-    width: 250px;
-    max-height: 40vh;
+    width: 350px;
+    height: 410px;
 }
 
-.wrapperContent{
-padding:10px 10%;
-justify-content: space-between;
-min-height: 100vh;
-background: #dafdd3;
+.wrapperContent {
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 80%;
+    gap: 20px;
+    min-height: 100vh;
+    display: flex;
 }
 
 .photoHeader {
@@ -43,14 +45,16 @@ background: #dafdd3;
     }
 }
 
-@media(max-width: 1368px) {
+@media (max-width: 1368px) {
     .navbarApp {
         display: none;
     }
-    .wrapperContent{
-        padding:10px 5px;
+
+    .wrapperContent {
+        padding: 10px 5px;
     }
-    .content{
+
+    .content {
         padding: 0;
     }
 }

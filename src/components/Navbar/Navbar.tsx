@@ -1,15 +1,11 @@
 import React from 'react';
 import style from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import Sidebar from "./SideBar/Sidebar";
-import {store} from "../../store/store";
 import {CardContent} from "@material-ui/core";
 import {EmojiEmotions, FiberNew, LibraryMusic, Markunread, Person, Settings} from "@material-ui/icons";
 
 
 const Navbar = () => {
-
-    // let sidebarElements = store.getState().sidebar.imagesData.map((item) => <Sidebar image={item.image}/>)
 
     return (
         <div className={style.nav}>
@@ -48,13 +44,6 @@ const Navbar = () => {
                     <span>Settings</span>
                 </div>
             </CardContent>
-
-            {/*<CardContent >*/}
-            {/*<div className={style.friendsSidebar}>*/}
-            {/*    <h3>FRIENDS </h3>*/}
-            {/*    <div className={style.sidebarElements}>{sidebarElements}</div>*/}
-            {/*</div>*/}
-            {/*    </CardContent >*/}
         </div>
     )
 }

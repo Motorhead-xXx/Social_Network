@@ -1,11 +1,11 @@
 import React from 'react';
-import {addPost, profileReducerType} from "../../../reducers/profile-reducer";
+import {addPost, postDataType} from "../../../reducers/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../store/store";
 
 type MapStateProfileType = {
-    profilePage: profileReducerType
+    profilePage: Array<postDataType>
 }
 type MapDispatchPropsType = {
     addPost: (text: string) => void
@@ -13,7 +13,7 @@ type MapDispatchPropsType = {
 export type PostPropsType = MapStateProfileType & MapDispatchPropsType
 let mapStateToProps = (state: AppStateType): MapStateProfileType => {
     return {
-        profilePage: state.profilePage,
+        profilePage: state.profilePage.postData,
     }
 }
 export default connect(mapStateToProps, {addPost})(MyPosts)

@@ -32,7 +32,7 @@ export type MapDispatchPropsType = {
 type UsersPropsType = MapStateUserType & MapDispatchPropsType
 
 const stylePaginatorPaper = {
-    minWidth: "100%",
+    minWidth: "70px",
     minHeight: "40px",
     alignItems: "center",
     display: "flex"
@@ -58,10 +58,11 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
                 <div className={s.paginator}>
 
                     <Paper sx={stylePaginatorPaper}>
-                        <Pagination color={"standard"} onChange={(event, page) => {
+                        <Pagination  color={"standard"} onChange={(event, page) => {
                             this.onPageChanged(page)
-                        }} count={pagesCount} variant={'text'} shape="rounded" defaultPage={1} siblingCount={13}
-                                    size={"small"}/></Paper>
+                        }} count={pagesCount} variant={'text'} shape="circular" defaultPage={1} siblingCount={3}
+                                    size={"small"}/>
+                    </Paper>
                 </div>
                 <>
                     {this.props.isFetching ? <Preloader/>

@@ -41,6 +41,9 @@
     margin-bottom: 15px
 }
 
+.user a {
+    text-decoration: none;
+}
 
 
 .name{
@@ -53,9 +56,9 @@
 
 .paginator{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+    justify-content: start;
+    align-items: start;
+    margin: 0 0 20px 0;
 }
 
 /*.containerWrapper{*/

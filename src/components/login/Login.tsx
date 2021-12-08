@@ -48,10 +48,17 @@ const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
             <form onSubmit={formik.handleSubmit}>
                 <div className={style.form}>
                     <Paper className={style.loginFormContainer}>
+
+                        <div className={style.prompt}>
+                            <p >Use common test account credentials:</p>
+                            <p >Email: <span style={{color:"orange"}}>free@samuraijs.com</span></p>
+                            <p >Password: <span style={{color:"orange"}}>free</span></p>
+                        </div>
+
                         <Typography color={"orange"} component={"h1"} variant={"h4"} fontSize={"xxx-large"}>
                             Login
                         </Typography>
-                        <TextField sx={{maxWidth: "400px", minWidth: "350px"}} size={"small"} color={"success"}
+                        <TextField sx={{minWidth: "250px"}} size={"small"} color={"success"}
                                    id="email"
                                    name="email"
                                    label="Email"
@@ -61,7 +68,7 @@ const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
                                    helperText={formik.touched.email && formik.errors.email}
                                    required
                         />
-                        <TextField sx={{maxWidth: "400px", minWidth: "350px"}} size={"small"} color={"success"}
+                        <TextField sx={{minWidth: "250px"}} size={"small"} color={"success"}
                                    id="password"
                                    name="password"
                                    label="Password"

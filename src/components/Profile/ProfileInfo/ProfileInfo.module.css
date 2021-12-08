@@ -8,10 +8,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 20px;
     align-items: center;
     padding-top: 10px;
     width: 100%;
-    height: 350px;
+    min-height: 350px;
 }
 .imageProfile{
     width: 300px;
@@ -20,8 +21,34 @@
     /*border: 10px solid rgba(2,152,142,1);*/
 }
 
+.photo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload{
+    cursor: pointer;
+    border: none;
+    margin-bottom: 10px;
+}
+
 .info{
-    width: 450px;
-    height: 300px;
+    width:50%;
+    min-height: 300px;
+}
+
+.statusSpan {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    color: #02988e;
+}
+
+.contact{
+    padding-left: 10px;
 }
 

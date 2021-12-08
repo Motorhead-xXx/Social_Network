@@ -1,7 +1,7 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {ProfileActionTypes, profileReduser} from "../reducers/profile-reducer";
 import dialogReducer, {DialogActionTypes} from "../reducers/dialogs-reduser";
-import sidebarReducer, {SideBarActionTypes} from "../reducers/sidebar-reducer";
+import sidebarReducer from "../reducers/sidebar-reducer";
 import {ActionUsersType, usersReducer} from "../reducers/user-reducer";
 import {ActionAuthReducerType, authReducer} from "../reducers/auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
@@ -17,7 +17,7 @@ let rootReducer = combineReducers({
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
-export const store = createStore(rootReducer, applyMiddleware(thunk))
+
 
 export type RootAppActionType =
     ActionAuthReducerType
@@ -27,7 +27,7 @@ export type RootAppActionType =
     // |SideBarActionTypes
     |ActionUsersType;
 
-export type AppThunkType<ReturnType=void> = ThunkAction<void, AppStateType, unknown, RootAppActionType>
+export type AppThunkType = ThunkAction<void, AppStateType, unknown, RootAppActionType>
 
 export enum ResultCodesEnum {
     Success = 0,
@@ -40,6 +40,9 @@ export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
     resultCode: RC
 }
 
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__||compose
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 //@ts-ignore
 window.store= store

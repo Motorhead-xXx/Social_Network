@@ -22,13 +22,17 @@
 
 .wrapperItems {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     flex-direction: column;
+}
+
+.wrapperItems a {
+    text-decoration: none;
 }
 
 .item {
     display: flex;
-    height: 35px;
+    height: 45px;
     width: 100%;
     align-items: center;
     gap: 10px;
@@ -39,7 +43,6 @@
 }
 
 .active {
-
     font-size: x-large;
     font-weight: bolder;
     font-family: 'Varela Round', sans-serif;
@@ -52,12 +55,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     flex-direction: column;
-    font-family: 'Varela Round', sans-serif;
-}
-
-.sidebarImg {
-    width: 30px;
-    border-radius: 40px;
     font-family: 'Varela Round', sans-serif;
 }
 

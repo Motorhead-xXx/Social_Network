@@ -5,8 +5,8 @@ import {PostPropsType} from "./MyPostsContainer";
 import {Button, Paper, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 
-const MyPosts =React.memo ((props: PostPropsType) => {
-    let postsElements = props.profilePage.postData.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
+const MyPosts = React.memo ((props: PostPropsType) => {
+    let postsElements = props.profilePage.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
 
     let addPost = (values: string) => {
         if(values !== ""){
