@@ -6,19 +6,13 @@ import {Provider} from "react-redux";
 import {store} from "./store/store";
 import {HashRouter} from "react-router-dom";
 
+ReactDOM.render(
+    <Provider store={store}>
+        <HashRouter><App/></HashRouter>
+    </Provider>
+    , document.getElementById('root')
+);
 
-let rerenderEntireTree = () => {
-    ReactDOM.render(
-            <Provider store={store}>
-                <HashRouter><App/></HashRouter>
-            </Provider>
-        , document.getElementById('root')
-    );
-}
-rerenderEntireTree()
-store.subscribe(()=>{
-    rerenderEntireTree()
-});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -60,7 +60,7 @@ let initialState = {
     status: "",
 }
 
-export const profileReduser = (state= initialState, action: ProfileActionTypes):InitialStateType => {
+export const profileReduser = (state = initialState, action: ProfileActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             return {
@@ -84,7 +84,7 @@ export const profileReduser = (state= initialState, action: ProfileActionTypes):
     }
 }
 
-export type ProfileActionTypes = addPostType | setUsersProfileType | SetStatusType | DeletePostType|SavePhotosSuccess
+export type ProfileActionTypes = addPostType | setUsersProfileType | SetStatusType | DeletePostType | SavePhotosSuccess
 
 type addPostType = ReturnType<typeof addPost>
 export const addPost = (postText: string) => ({type: ADD_POST, postText} as const)
@@ -102,7 +102,7 @@ type SavePhotosSuccess = ReturnType<typeof savePhotoSuccess>
 export const savePhotoSuccess = (photos: PhotosType) => ({type: 'SN/PROFILE/SAVE_PHOTO_SUCCESS', photos} as const)
 
 
-export const getCurrenUsersProfile = (userId: number):AppThunkType => async (dispatch) => {
+export const getCurrenUsersProfile = (userId: number): AppThunkType => async (dispatch) => {
     let response = await profileAPI.getProfile(userId)
     dispatch(setUsersProfile(response.data))
 }
@@ -113,8 +113,15 @@ export const getStatusProfile = (userId: number) => async (dispatch: Dispatch) =
 }
 
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
-   await profileAPI.updateStatus(status)
-                dispatch(setStatus(status))
+    try {
+        let response = await profileAPI.updateStatus(status)
+        if (response.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    }catch (error){
+
+    }
+
 }
 
 export const savePhoto = (file: File): AppThunkType => async (dispatch) => {
@@ -125,11 +132,11 @@ export const savePhoto = (file: File): AppThunkType => async (dispatch) => {
 }
 
 export const saveProfile = (profile: ProfileType): AppThunkType => async (dispatch, getState) => {
-   let userID = getState().auth.id
+    let userID = getState().auth.id
     let data = await profileAPI.saveProfile(profile);
-    if (data.resultCode === 0){
+    if (data.resultCode === 0) {
         dispatch(getCurrenUsersProfile(userID as number))
-    }else {
+    } else {
         dispatch(setAppError(data.messages[0]))
     }
     return

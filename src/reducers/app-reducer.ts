@@ -13,10 +13,10 @@ let initialState = {
 
 export const appReducer = (state: AppReducerType = initialState, action: AppActionType): AppReducerType => {
     switch (action.type) {
-        case "SET_ERROR": {
+        case "SN/APP/SET_ERROR": {
             return {...state, error: action.error}
         }
-        case "INITIALIZED-SUCCESS": {
+        case "SN/APP/INITIALIZED_SUCCESS": {
             return {...state, initialized: true}
         }
         default:
@@ -27,10 +27,10 @@ export const appReducer = (state: AppReducerType = initialState, action: AppActi
 export type AppActionType = SetAppErrorType | InitialSuccessType
 
 type SetAppErrorType = ReturnType<typeof setAppError>
-export const setAppError = (error: string | null) => ({type: "SET_ERROR", error} as const)
+export const setAppError = (error: string | null) => ({type: "SN/APP/SET_ERROR", error} as const)
 
 type InitialSuccessType = ReturnType<typeof initializedSuccess>
-export const initializedSuccess = () => ({type: "INITIALIZED-SUCCESS"} as const)
+export const initializedSuccess = () => ({type: "SN/APP/INITIALIZED_SUCCESS"} as const)
 
 export const initializeApp = (): AppThunkType => async (dispatch) => {
     let promise = await dispatch(authUserLogin())

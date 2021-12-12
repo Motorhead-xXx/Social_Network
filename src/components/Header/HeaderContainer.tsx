@@ -7,7 +7,7 @@ import {authUserLogin, logOut} from "../../reducers/auth-reducer";
 type MapStateUserType = {
     isAuth: boolean,
     login: string | null,
-    photo: string | null
+    photo?: string | null
 }
 
 type MapDispatchPropsType = {
@@ -27,7 +27,7 @@ const mapStateToProp = (state: AppStateType): MapStateUserType => {
     return {
         isAuth: state.auth.isAuth,
         login: state.auth.login,
-        photo: state.auth.photo
+        photo: state.profilePage.profile?.photos.large
     }
 }
 

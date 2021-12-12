@@ -31,7 +31,7 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
         }
     }
 
-    const onSubmit = (value:ProfileType) => {
+    const onSubmit = (value: ProfileType) => {
         props.saveProfile(value)
         setEditMode(false)
     }
@@ -60,8 +60,6 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
                                 </Button>}
                             </div>
                         </div>
-
-
                         <div className={style.info}>
                             <ErrorSnackbars/>
                             <ProfileStatusWidthHook status={props.status} updateStatus={props.updateStatus}/>

@@ -3,15 +3,6 @@ import {Dispatch} from "redux";
 import {updateOjectInArray} from "../utils/object-halper";
 import {APIResponseType, AppThunkType} from "../store/store";
 
-export enum ACTIONS_TYPE {
-    FOLLOW = 'Users/FOLLOW',
-    UNFOLLOW = 'Users/UNFOLLOW',
-    SET_USERS = 'Users/SET_USERS',
-    SET_CURRENT = 'Users/SET_CURRENT',
-    SET_TOTAL_COUNT = 'Users/SET_TOTAL_COUNT',
-    TOGGLE_FETCHING = 'Users/CHANGE_FETCHING',
-    FOLLOWING_PROGRESS = 'Users/FOLLOWING_PROGRESS',
-}
 
 export type usersType = {
     id: number
@@ -40,25 +31,25 @@ let initialState = {
 
 export const usersReducer = (state: usersReduceType = initialState, action: ActionUsersType): usersReduceType => {
     switch (action.type) {
-        case ACTIONS_TYPE.FOLLOW: {
+        case 'SN/USERS/FOLLOW': {
             return {...state, users: updateOjectInArray(state.users, action.userID, "id", {followed:true})}
         }
-        case ACTIONS_TYPE.UNFOLLOW: {
+        case 'SN/USERS/UNFOLLOW': {
             return {...state, users: updateOjectInArray(state.users, action.userID, "id", {followed:false})}
         }
-        case ACTIONS_TYPE.SET_USERS: {
+        case 'SN/USERS/SET_USERS': {
             return {...state, users: action.users}
         }
-        case ACTIONS_TYPE.SET_CURRENT: {
+        case 'SN/USERS/SET_CURRENT_PAGE': {
             return {...state, currentPage: action.page}
         }
-        case ACTIONS_TYPE.SET_TOTAL_COUNT: {
+        case 'SN/USERS/SET_TOTAL_USERS_COUNT': {
             return {...state, totalUserCount: action.totalCount}
         }
-        case ACTIONS_TYPE.TOGGLE_FETCHING: {
+        case 'SN/USERS/TOGGLE_IS_FETCHING': {
             return {...state, isFetching: action.isFetching}
         }
-        case ACTIONS_TYPE.FOLLOWING_PROGRESS: {
+        case 'SN/USERS/TOGGLE_IS_FOLLOWING_PROGRESS': {
             return {
                 ...state,
                 followingProgress: action.isFetching
@@ -75,25 +66,25 @@ export type ActionUsersType = acceptFollowType | acceptUnfollowType | setUsersTy
     | setTotalUsersCountType | toggleFetchingType | ToggleFollowingProgressType
 
 export type acceptFollowType = ReturnType<typeof acceptFollow>
-export const acceptFollow = (userID: number) => ({type: ACTIONS_TYPE.FOLLOW, userID} as const)
+export const acceptFollow = (userID: number) => ({type: 'SN/USERS/FOLLOW', userID} as const)
 
 export type acceptUnfollowType = ReturnType<typeof acceptUnfollow>
-export const acceptUnfollow = (userID: number) => ({type: ACTIONS_TYPE.UNFOLLOW, userID: userID} as const)
+export const acceptUnfollow = (userID: number) => ({type: 'SN/USERS/UNFOLLOW', userID: userID} as const)
 
 export type setUsersType = ReturnType<typeof setUsers>
-export const setUsers = (users: usersType[]) => ({type: ACTIONS_TYPE.SET_USERS, users} as const)
+export const setUsers = (users: usersType[]) => ({type: 'SN/USERS/SET_USERS', users} as const)
 
 export type setCurrentPageType = ReturnType<typeof setCurrentPage>
-export const setCurrentPage = (page: number) => ({type: ACTIONS_TYPE.SET_CURRENT, page} as const)
+export const setCurrentPage = (page: number) => ({type: 'SN/USERS/SET_CURRENT_PAGE', page} as const)
 
 export type setTotalUsersCountType = ReturnType<typeof setTotalUsersCount>
-export const setTotalUsersCount = (totalCount: number) => ({type: ACTIONS_TYPE.SET_TOTAL_COUNT, totalCount} as const)
+export const setTotalUsersCount = (totalCount: number) => ({type: 'SN/USERS/SET_TOTAL_USERS_COUNT', totalCount} as const)
 
 export type toggleFetchingType = ReturnType<typeof toggleFetching>
-export const toggleFetching = (isFetching: boolean) => ({type: ACTIONS_TYPE.TOGGLE_FETCHING, isFetching} as const)
+export const toggleFetching = (isFetching: boolean) => ({type: 'SN/USERS/TOGGLE_IS_FETCHING', isFetching} as const)
 
 export type ToggleFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
-export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: ACTIONS_TYPE.FOLLOWING_PROGRESS, isFetching, userId} as const)
+export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({type: 'SN/USERS/TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const)
 
 export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFetching(true));

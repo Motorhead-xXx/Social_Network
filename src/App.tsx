@@ -13,8 +13,6 @@ import {initializeApp} from "./reducers/app-reducer";
 import {AppStateType} from "./store/store";
 import UsersContainer from "./components/Users/UsersContainer";
 
-// import ProfileContainer from "./components/Profile/ProfileContainer";
-// import DialogsContainer from "./components/Dialogs/DialogsContainer";
 const DialogContainer = React.lazy(() => import( "./components/Dialogs/DialogsContainer"))
 const ProfileContainer = React.lazy(() => import( "./components/Profile/ProfileContainer"))
 

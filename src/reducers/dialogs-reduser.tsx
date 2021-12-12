@@ -1,5 +1,3 @@
-const SEND_MESSAGE = 'SEND-MESSAGES';
-
 type dialogsDataType = {
     name: string
     id: number
@@ -50,7 +48,7 @@ let initialState: dialogReducerType = {
 
 const dialogReducer = (state: dialogReducerType = initialState, action: DialogActionTypes) => {
     switch (action.type) {
-        case SEND_MESSAGE: {
+        case 'SN/DIALOGS/SEND_MESSAGE': {
             let text = action.newMessageText;
            return  text !== "" ? {...state, messagesData: [...state.messagesData, {id: 6, message: text}]} : state
         }
@@ -61,6 +59,6 @@ const dialogReducer = (state: dialogReducerType = initialState, action: DialogAc
 
 export type DialogActionTypes = MessageType
 export type MessageType = ReturnType<typeof onSendMessage>
-export const onSendMessage = (newMessageText: string) => ({type: SEND_MESSAGE, newMessageText} as const)
+export const onSendMessage = (newMessageText: string) => ({type: 'SN/DIALOGS/SEND_MESSAGE', newMessageText} as const)
 
 export default dialogReducer;

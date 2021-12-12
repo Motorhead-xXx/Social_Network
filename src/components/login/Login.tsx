@@ -11,11 +11,12 @@ import {LoginApiType} from "../../api/paramsAPI";
 import ErrorSnackbars from "../common/errorSnackbar";
 
 type mapDispatchToPropsType = {
-    loginTC: (data:LoginApiType) => void
+    loginTC: (data: LoginApiType) => void
 }
 
 type mapStateToProsType = {
     isAuth: boolean
+    captchaUrl: string | null
 }
 
 type loginType = mapStateToProsType & mapDispatchToPropsType
@@ -25,18 +26,18 @@ const validationSchema = yup.object({
         .email('Enter a valid email')
         .required('Email is required'),
     password: yup.string()
-        .min(4, 'Password should be of minimum 4 characters length')
+        .min(4, 'Minimum 4 characters length')
         // .matches(/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/, "Password must meet complexity requirements")
-        .required('Password is required')
-
+        .required('Password is required'),
 });
 
-const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
+const LoginForm = (props: { onSubmit: (data: LoginApiType) => void, captcha: string | null }) => {
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             rememberMe: false,
+            captcha: "",
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -50,9 +51,9 @@ const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
                     <Paper className={style.loginFormContainer}>
 
                         <div className={style.prompt}>
-                            <p >Use common test account credentials:</p>
-                            <p >Email: <span style={{color:"orange"}}>free@samuraijs.com</span></p>
-                            <p >Password: <span style={{color:"orange"}}>free</span></p>
+                            <p>Use common test account credentials:</p>
+                            <p>Email: <span style={{color: "orange"}}>free@samuraijs.com</span></p>
+                            <p>Password: <span style={{color: "orange"}}>free</span></p>
                         </div>
 
                         <Typography color={"orange"} component={"h1"} variant={"h4"} fontSize={"xxx-large"}>
@@ -81,6 +82,18 @@ const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
                         />
                         <FormControlLabel onChange={formik.handleChange} control={<Checkbox {...formik.getFieldProps("rememberMe")}
                                                                                             checked={formik.values.rememberMe}/>} label="Remember me"/>
+
+                        {props.captcha && <div style={{display: "flex", flexDirection: "column", gap:"10px"}}>
+                            <img src={props.captcha}/>
+                            <TextField sx={{minWidth: "250px"}} variant={"standard"} size={"small"} color={"success"}
+                                       id="captcha"
+                                       {...formik.getFieldProps("captcha")}
+                                       required
+                            />
+                        </div>
+                        }
+
+
                         <Button color={"warning"} variant={"contained"} type="submit">Submit</Button>
 
                     </Paper>
@@ -91,7 +104,7 @@ const LoginForm = (props: { onSubmit: (data: LoginApiType) => void }) => {
 }
 
 const Login = (props: loginType) => {
-    const submitOn = (values:LoginApiType) => {
+    const submitOn = (values: LoginApiType) => {
         props.loginTC(values)
     }
     if (props.isAuth) {
@@ -99,14 +112,15 @@ const Login = (props: loginType) => {
     }
     return (
         <div>
-            <LoginForm onSubmit={submitOn}/>
+            <LoginForm captcha={props.captchaUrl} onSubmit={submitOn}/>
             <ErrorSnackbars/>
         </div>
     )
 }
 const mapStateToProps = (state: AppStateType): mapStateToProsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl,
     }
 }
 export default connect(mapStateToProps, {loginTC})(Login)

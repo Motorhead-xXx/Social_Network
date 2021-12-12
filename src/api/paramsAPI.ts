@@ -24,7 +24,11 @@ export type LoginApiType = {
     email:string
     password:string
     rememberMe:boolean
-    captcha?:string
+    captcha:string|null
+}
+
+type GetCaptchaUrlResponseType = {
+    url: string
 }
 
 export const instance = axios.create({
@@ -87,6 +91,12 @@ export const profileAPI = {
     },
     saveProfile(profile: ProfileType) {
         return instance.put<ProfileType,AxiosResponse<APIResponseType>>(`profile`, profile).then(res => res.data);
+    }
+}
+
+export const securityAPI = {
+    getCaptchaUrl(){
+        return instance.get<GetCaptchaUrlResponseType>(`/security/get-captcha-url`);
     }
 }
 

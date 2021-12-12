@@ -25,11 +25,22 @@
 }
 
 .photoHeader {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    padding: 5px;
-    background: #fff700;
+    padding: 2px;
+    background: #fa7600;
+}
+
+.headerMain a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e8e8e8;
+    font-weight: bold;
+    font-size: 25px;
+    margin-right: 20px;
 }
 
 .login {
