@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
-import {CircularProgress, Grid, LinearProgress} from "@material-ui/core";
+import {CircularProgress, LinearProgress} from "@material-ui/core";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
 import {Paper} from "@mui/material";
@@ -15,6 +15,7 @@ import UsersContainer from "./components/Users/UsersContainer";
 
 const DialogContainer = React.lazy(() => import( "./components/Dialogs/DialogsContainer"))
 const ProfileContainer = React.lazy(() => import( "./components/Profile/ProfileContainer"))
+const ChatPage = React.lazy(() => import( "./chat/ChatPage"))
 
 type MapDispatchToPropsType = {
     initializeApp: () => void
@@ -38,10 +39,10 @@ class App extends React.Component<PropsType, {}> {
         }
 
         return (
-            <Grid container>
-                <Grid item xs={12}>
+            <div>
+
                     <HeaderContainer/>
-                </Grid>
+
 
                 <div className={style.wrapperContent}>
 
@@ -61,19 +62,21 @@ class App extends React.Component<PropsType, {}> {
                                 <Route path="/profile/:userId?"
                                        render={() => <ProfileContainer/>}/>
 
-
                                 <Route path="/users"
                                        render={() => <UsersContainer/>}/>
 
                                 <Route path="/login"
                                        render={() => <Login/>}/>
+
+                                <Route path="/chat"
+                                       render={() => <ChatPage/>}/>
                             </React.Suspense>
                         </Switch>
                     </div>
 
                 </div>
 
-            </Grid>
+            </div>
         )
     }
 }

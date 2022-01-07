@@ -77,7 +77,7 @@ export const profileAPI = {
         return instance.get<string>(`profile/status/` + id)
     },
     updateStatus(status: string) {
-        return instance.put<{ status: string }, ResponseType>(`profile/status/`, {status})
+        return instance.put<{status:string},AxiosResponse<ResponseType>>(`profile/status/`, {status})
     },
     savePhoto(photoFile: File) {
         const formData = new FormData();

@@ -29,7 +29,6 @@ export const User = ({user, ...props}: PropsType) => {
                                             background: "#10ab9e"
                                         }}> {user.name[0].toUpperCase()}</Avatar>}
                                 </div>
-
                             </NavLink>
                         </div>
                         <div className={s.name}>

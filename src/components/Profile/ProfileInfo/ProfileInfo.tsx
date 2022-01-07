@@ -14,6 +14,7 @@ type ProfileInfoComponentType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     saveProfile: (profile: ProfileType) => void
+    getStatusProfile: (userId: number | null) => void
 }
 
 
@@ -62,10 +63,10 @@ const ProfileInfo = (props: ProfileInfoComponentType) => {
                         </div>
                         <div className={style.info}>
                             <ErrorSnackbars/>
-                            <ProfileStatusWidthHook status={props.status} updateStatus={props.updateStatus}/>
+                            <ProfileStatusWidthHook status={props.status} updateStatus={props.updateStatus} getStatusProfile={props.getStatusProfile}/>
                             {editMode
                                 ? <ProfileDataForm profile={props.profile} onSubmit={onSubmit}/>
-                                : <ProfileBlock profile={props.profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>
+                                : <ProfileBlock  profile={props.profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>
                             }
                         </div>
                     </Paper>
@@ -85,29 +86,33 @@ type ProfileBlockType = {
 
 const ProfileBlock = (props: ProfileBlockType) => {
     return (
-        <>
+        <div className={style.profileBlock}>
             <div>
-                <b>Full name:</b> {props.profile.fullName}
+                <b className={style.mainTextKey}>Full name:</b>
+                <span style={{color:"darkorange"}}>{props.profile.fullName}</span>
             </div>
             <div>
-                <b>Looking for a job:</b> {props.profile.lookingForAJob ? "yes" : "no"}
+                <b className={style.mainTextKey}>Looking for a job:</b>
+                <span style={{color:"darkorange"}}>{props.profile.lookingForAJob ? "yes" : "no"}</span>
             </div>
             {
                 props.profile.lookingForAJob &&
                 <div>
-                    <b>My professional skills:</b> {props.profile.lookingForAJobDescription}
+                    <b className={style.mainTextKey}>My professional skills:</b>
+                    <span style={{color:"darkorange"}}>{props.profile.lookingForAJobDescription}</span>
                 </div>
             }
             <div>
-                <b>Contacts:</b> {Object.keys(props.profile.contacts).map(key => {
+                <b className={style.mainTextKey}>Contacts:</b> {Object.keys(props.profile.contacts).map(key => {
                 return <Contact key={key} contactTitle={key} contactValue={props.profile.contacts[key as keyof ContactsType]}/>
             })}
             </div>
             <div>
-                <b>About me for :</b> {props.profile.aboutMe}
+                <b className={style.mainTextKey}>About me for :</b>
+                <span style={{color:"darkorange"}}>{props.profile.aboutMe}</span>
             </div>
-            {props.isOwner && <div><Button size={"small"} color={"warning"} variant={"text"} onClick={props.goToEditMode}>Edit</Button></div>}
-        </>
+            {props.isOwner && <div style={{justifyContent:"center",alignItems:"center",display:'flex', padding:"10px"}}><Button size={"small"} color={"warning"} variant={"outlined"} onClick={props.goToEditMode}>Edit</Button></div>}
+        </div>
     )
 }
 
@@ -117,9 +122,10 @@ type ContactPropsType = {
     contactValue?: string
 }
 
-const Contact = ({contactTitle, contactValue, ...props}: ContactPropsType) => {
+const Contact = ({contactTitle, contactValue}: ContactPropsType) => {
     return <div className={style.contact}>
-        <b>{contactTitle}</b>:{contactValue}
+        <span className={style.text}><b>{contactTitle}</b>:</span>
+        <span style={{ color: "#02988e"}}>{contactValue}</span>
     </div>
 }
 

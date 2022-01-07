@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 import {CardContent} from "@material-ui/core";
-import {EmojiEmotions, FiberNew, LibraryMusic, Markunread, Person, Settings} from "@material-ui/icons";
+import {Chat, EmojiEmotions, LibraryMusic, Markunread, Person, Settings} from "@material-ui/icons";
 
 
 const Navbar = () => {
@@ -29,12 +29,14 @@ const Navbar = () => {
                         <span className={style.spanLink}>Users</span>
                     </div>
                 </NavLink>
-                <a>
+
+                <NavLink to="/chat" activeClassName={style.active}>
                     <div className={style.item}>
-                        <FiberNew/>
-                        <span className={style.spanLink}>News</span>
+                        <Chat/>
+                        <span className={style.spanLink}>Chat</span>
                     </div>
-                </a>
+                </NavLink>
+
                 <div className={style.item}>
                     <LibraryMusic/>
                     <span>Music</span>

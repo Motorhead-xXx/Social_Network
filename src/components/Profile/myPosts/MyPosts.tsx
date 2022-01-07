@@ -5,11 +5,11 @@ import {PostPropsType} from "./MyPostsContainer";
 import {Button, Paper, TextField} from "@material-ui/core";
 import {useFormik} from "formik";
 
-const MyPosts = React.memo ((props: PostPropsType) => {
+const MyPosts = React.memo((props: PostPropsType) => {
     let postsElements = props.profilePage.map(post => <Post message={post.message} likeCount={post.likeCount}/>)
 
     let addPost = (values: string) => {
-        if(values !== ""){
+        if (values !== "") {
             props.addPost(values)
         }
     }
@@ -33,23 +33,25 @@ const AddNewPost = ({onSubmit}: { onSubmit: (values: string) => void }) => {
         initialValues: {
             newPostText: '',
         },
-        onSubmit: (values,{resetForm}) => {
+        onSubmit: (values, {resetForm}) => {
             onSubmit(values.newPostText);
             resetForm()
         },
     });
     return (
         <div>
-            <form onSubmit={post.handleSubmit} >
-                <div>
-                    <TextField sx={{width: "400px"}} size={"small"} color={"success"}
-                                id="newPostText"
-                                name="newPostText"
-                                label="New post..."
-                                value={post.values.newPostText}
-                                onChange={post.handleChange}
-                />
-                    <Button color={"warning"} variant={"contained"} type="submit">Submit</Button>
+            <form onSubmit={post.handleSubmit}>
+                <div className={style.wrapperAddPost}>
+                    <TextField
+                        className={style.addTextField}
+                        size={"small"} color={"success"}
+                        id="newPostText"
+                        name="newPostText"
+                        label="New post..."
+                        value={post.values.newPostText}
+                        onChange={post.handleChange}
+                    />
+                    <Button sx={{height: "40px"}} color={"warning"} variant={"contained"} type="submit">Submit</Button>
                 </div>
             </form>
         </div>

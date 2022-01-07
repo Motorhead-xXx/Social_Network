@@ -5,6 +5,7 @@ import style from './ProfileInfo.module.css'
 type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
+    getStatusProfile: (userId: number | null) => void
 }
 
 
@@ -22,6 +23,7 @@ export const ProfileStatusWidthHook = (props:ProfileStatusPropsType) => {
 
     const onBlurEditMode = () => {
        setEditMode(false)
+
         props.updateStatus(status)
     }
 
@@ -33,8 +35,8 @@ export const ProfileStatusWidthHook = (props:ProfileStatusPropsType) => {
         <div>
 
             {!editMode &&
-            <div>
-                       <b>Status:</b> <span className={style.statusSpan} onDoubleClick={activateEditMode}>
+            <div style={{marginBottom:"10px", borderBottom:"3px solid orange" ,paddingBottom:"10px"}}>
+                       <b style={{color:"darkorange"}}>Status:</b> <span className={style.statusSpan} onDoubleClick={activateEditMode}>
                         {props.status || "Add status"}
                         </span>
             </div>

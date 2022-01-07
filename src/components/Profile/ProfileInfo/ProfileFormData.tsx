@@ -80,7 +80,7 @@ export const ProfileDataForm = (props: any) => {
                                 </div>
                             })}
                             </div>
-                            <Button size={"small"} color={"success"} type="submit" variant={"contained"}>Save</Button>
+                            <Button size={"small"} color={"success"} type="submit" variant={"contained"} style={{marginTop: "10px"}}>Save</Button>
                         </div>
                     </FormGroup>
                 </form>

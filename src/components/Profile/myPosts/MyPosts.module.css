@@ -12,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 5px;
+    gap: 15px;
 }
 
 .addPost{
@@ -23,11 +23,26 @@
     align-items: center;
 }
 
+.wrapperAddPost{
+    width: 100%;
+}
+
+.addTextField{
+    width: 500px;
+}
+
 .posts{
     width: 100%;
     min-height: 100px;
     display:flex;
+    gap: 20px;
     flex-direction: column;
     justify-content:start;
     align-items: start;
+}
+
+@media (max-width: 766px) {
+    .addTextField{
+        max-width: 250px;
+    }
 }

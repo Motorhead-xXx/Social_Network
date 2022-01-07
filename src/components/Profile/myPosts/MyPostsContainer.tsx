@@ -1,4 +1,3 @@
-import React from 'react';
 import {addPost, postDataType} from "../../../reducers/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
