@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Button, TextareaAutosize} from "@material-ui/core";
-
-
-const wsChanel = new WebSocket("wss://social-network.samuraijs.com/handlers/ChatHandler.ashx")
-
+import {useDispatch, useSelector} from "react-redux";
+import {removeMessages, sendMessage, startMessagesListening, stopMessagesListening} from "../reducers/chat-reducer";
+import {AppStateType} from "../store/store";
 
 export type ChatMessageType = {
     message: string
@@ -20,6 +19,15 @@ const ChatPage = () => {
 };
 
 export const Chat = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(startMessagesListening())
+        return () => {
+            dispatch(stopMessagesListening())
+            dispatch(removeMessages())
+        }
+    },[])
 
     return <div>
         <Messages/>
@@ -29,15 +37,8 @@ export const Chat = () => {
 };
 
 export const Messages = () => {
-    const [messages, setMessages] = useState<ChatMessageType[]>([])
-    useEffect(() => {
-        wsChanel.addEventListener('message', (e) => {
-            const newMessages = JSON.parse(e.data);
-            setMessages((prevMessages) => [...prevMessages, ...newMessages])
-        })
-    }, [])
-
-
+   const messages = useSelector<AppStateType, ChatMessageType[]>(s=> s.chat.messages);
+   
     return <div>
         <div style={{maxHeight: "70vh", overflow: 'auto'}}>
             {messages.map((m, index) => <Message key={index} message={m}/>)}
@@ -61,19 +62,13 @@ export const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
 
 export const AddMessagesForm = () => {
     const [message, setMessage] = useState("");
-    const [isReadyStatus, setIsReadyStatus] = useState<'pending' | 'ready'>('pending');
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        wsChanel.addEventListener("open", () => {
-            setIsReadyStatus('ready')
-        })
-    }, [])
-
-    const sendMessage = () => {
+    const sendMessageHandler = () => {
         if (!message) {
             return
         }
-        wsChanel.send(message)
+        dispatch(sendMessage(message))
         setMessage("")
     }
 
@@ -84,7 +79,7 @@ export const AddMessagesForm = () => {
         </div>
 
         <div>
-            <Button disabled={isReadyStatus !== 'ready' } onClick={sendMessage} variant={"contained"}>
+            <Button disabled={false} onClick={sendMessageHandler} variant={"contained"}>
                 Send
             </Button>
         </div>

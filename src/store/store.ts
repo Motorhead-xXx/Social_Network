@@ -6,6 +6,7 @@ import {ActionUsersType, usersReducer} from "../reducers/user-reducer";
 import {ActionAuthReducerType, authReducer} from "../reducers/auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {AppActionType, appReducer} from "../reducers/app-reducer";
+import {chatReducer} from "../reducers/chat-reducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReduser,
@@ -14,6 +15,7 @@ let rootReducer = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
+    chat: chatReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
@@ -24,7 +26,6 @@ export type RootAppActionType =
     |AppActionType
     |DialogActionTypes
     |ProfileActionTypes
-    // |SideBarActionTypes
     |ActionUsersType;
 
 export type AppThunkType = ThunkAction<void, AppStateType, unknown, RootAppActionType>
