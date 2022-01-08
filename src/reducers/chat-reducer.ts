@@ -1,19 +1,23 @@
-import {chatAPI, ChatMessageType} from "../api/chatApi";
+import {chatAPI, ChatMessageAPIType, StatusType} from "../api/chatApi";
 import {Dispatch} from "redux";
+import {v1} from "uuid";
 
-type initialStateType = typeof initialState;
+
+export type ChatMessageType = ChatMessageAPIType & { id: string }
 
 let initialState = {
-    messages: [] as ChatMessageType[]
+    messages: [] as ChatMessageType[],
+    status: 'pending' as StatusType
 }
-
+type initialStateType = typeof initialState;
 
 export const chatReducer = (state = initialState, action: ChatReducerType): initialStateType => {
     switch (action.type) {
         case "SN/chat/MESSAGES_RECEIVED": {
             return {
                 ...state,
-                messages: [...state.messages,...action.messages]
+                messages: [...state.messages, ...action.messages.map(m => ({...m, id: v1()}))]
+                    .filter((m, index, array) => index >= array.length - 100)
             }
         }
         case "SN/chat/REMOVE-MESSAGES": {
@@ -22,15 +26,21 @@ export const chatReducer = (state = initialState, action: ChatReducerType): init
                 messages: []
             }
         }
+        case "SN/chat/STATUS_CHANGED": {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
 }
 
-export type ChatReducerType = SetUserDataType|RemoveMessagesType
+export type ChatReducerType = SetUserDataType | RemoveMessagesType | StatusChangedType
 
 type SetUserDataType = ReturnType<typeof messagesReceived>
-export const messagesReceived = (messages: ChatMessageType[]) => ({
+export const messagesReceived = (messages: ChatMessageAPIType[]) => ({
     type: "SN/chat/MESSAGES_RECEIVED",
     messages,
 } as const)
@@ -40,8 +50,13 @@ export const removeMessages = () => ({
     type: "SN/chat/REMOVE-MESSAGES",
 } as const)
 
-let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null;
+type StatusChangedType = ReturnType<typeof statusChanged>
+export const statusChanged = (status: StatusType) => ({
+    type: "SN/chat/STATUS_CHANGED",
+    status
+} as const)
 
+let _newMessageHandler: ((messages: ChatMessageAPIType[]) => void) | null = null;
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
     if (_newMessageHandler === null) {
         _newMessageHandler = (messages) => {
@@ -51,13 +66,25 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
     return _newMessageHandler
 }
 
+let _statusChangedHandlerCreator: ((status: StatusType) => void) | null = null
+const statusChangedHandlerCreator = (dispatch: Dispatch) => {
+    if (_statusChangedHandlerCreator === null) {
+        _statusChangedHandlerCreator = (status) => {
+            dispatch(statusChanged(status))
+        }
+    }
+    return _statusChangedHandlerCreator
+}
+
 export const startMessagesListening = () => async (dispatch: Dispatch) => {
     chatAPI.start()
-    chatAPI.subscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.subscribeOnNewMessages('message-received', newMessageHandlerCreator(dispatch))
+    chatAPI.subscribeOnNewMessages('status-changed', statusChangedHandlerCreator(dispatch))
 }
 
 export const stopMessagesListening = () => async (dispatch: Dispatch) => {
-    chatAPI.unsubscribe(newMessageHandlerCreator(dispatch))
+    chatAPI.unsubscribe('message-received', newMessageHandlerCreator(dispatch))
+    chatAPI.unsubscribe('status-changed', statusChangedHandlerCreator(dispatch))
     chatAPI.stop()
 }
 
